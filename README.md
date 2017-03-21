@@ -19,5 +19,7 @@ This small directive removes white spaces from an input field.
      <input type="text" trim />
   ```
 
--
+
+
+---
 Good luck.
