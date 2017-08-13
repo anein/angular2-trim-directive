@@ -8,6 +8,7 @@
       "root"             : "./",
       "outDir"           : "example/dist",
       "index"            : "example/src/index.html",
+      "outIndex"         : "example/dist/index.html",
       "main"             : "example/src/main.ts",
       "polyfills"        : "example/src/polyfills.ts",
       "tsconfig"         : "tsconfig.json",
@@ -25,6 +26,9 @@
     }
   ],
   "defaults": {
+    "build"           : {
+      "sourcemaps": false
+    },
     "styleExt"        : "sass",
     "prefixInterfaces": false,
     "inline"          : {
