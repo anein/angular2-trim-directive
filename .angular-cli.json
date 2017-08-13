@@ -1,0 +1,43 @@
+{
+  "$schema" : "./node_modules/@angular/cli/lib/config/schema.json",
+  "project" : {
+    "name": "input-trim"
+  },
+  "apps"    : [
+    {
+      "root"             : "./",
+      "outDir"           : "example/dist",
+      "index"            : "example/src/index.html",
+      "main"             : "example/src/main.ts",
+      "polyfills"        : "example/src/polyfills.ts",
+      "tsconfig"         : "tsconfig.json",
+      "scripts"          : [],
+      "environmentSource": "./config/environments/environment.ts",
+      "environments"     : {
+        "dev" : "config/environments/environment.ts",
+        "prod": "config/environments/environment.prod.ts"
+      }
+    }
+  ],
+  "lint"    : [
+    {
+      "project": "./tslint.json"
+    }
+  ],
+  "defaults": {
+    "styleExt"        : "sass",
+    "prefixInterfaces": false,
+    "inline"          : {
+      "style"   : false,
+      "template": false
+    },
+    "spec"            : {
+      "class"    : false,
+      "component": true,
+      "directive": true,
+      "module"   : false,
+      "pipe"     : true,
+      "service"  : true
+    }
+  }
+}
