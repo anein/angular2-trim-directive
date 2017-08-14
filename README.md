@@ -1,5 +1,5 @@
 # angular2-trim-directive
-This small directive removes white spaces from an input field. 
+This directive trims whitespaces from the end of an input text value. Edit
 
 
 ## Usage 
@@ -19,6 +19,11 @@ This small directive removes white spaces from an input field.
      <input type="text" trim />
   ```
 
+  or with an option: trim value only on the blur event.
+
+  ```html
+     <input type="text" trim="blur" />
+  ```
 
 
 ---
