@@ -1,4 +1,11 @@
 <div>
   <label for="ex-trim">My input!</label>
-  <input id="ex-trim" name="ex-trim" value="" trim="input"/>
+  <input id="ex-trim" name="example" [(ngModel)]="example" value="" trim="blur"/>
+  <button type="button" (click)="onSubmit()">Submit!</button>
+  <div>
+    <span>Value: {{ example }} </span>
+  </div>
+  <div>
+    <span>Length: {{ example.length }} </span>
+  </div>
 </div>
