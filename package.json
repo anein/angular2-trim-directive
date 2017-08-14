@@ -2,7 +2,7 @@
   "name"           : "angular2-trim-directive",
   "version"        : "1.0.1",
   "repository"     : "git@github.com:anein/angular2-trim-directive.git",
-  "author"         : "Alexander Ein <cruelty.deny@gmail.com>",
+  "author"         : "Alexander Ein (@alexanderein)",
   "license"        : "MIT",
   "scripts"        : {
     "eg:build": "ng build",
