@@ -19,6 +19,9 @@ cache:
 script:
   - npm run build
 
+after_success:
+  - npm run build
+
 branches:
   only:
     - master
