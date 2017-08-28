@@ -25,10 +25,6 @@
     "eg:serve": "ng serve --app 0",
     "build"   : "tsc --project ./tsconfig.json"
   },
-  "peerDependencies": {
-    "@angular/core" : "^4.3.4",
-    "@angular/forms": "^4.3.4"
-  },
   "devDependencies" : {
     "@angular/core"                    : "^4.3.4",
     "@angular/forms"                   : "^4.3.4",

@@ -4,17 +4,25 @@ notifications:
   email: false
 node_js:
   - '6'
+
 before_script:
   - npm prune
+
 install:
   - npm install
+
+cache:
+  bundler: true
+  directories:
+    - node_modules
+
 script:
   - npm run build
+
 branches:
   only:
     - master
-  except:
-    - /^v\d+\.\d+\.\d+$/
+
 deploy:
   provider: npm
   email: al.eine@protonmail.com
