@@ -27,4 +27,4 @@ This directive trims whitespaces from the end of an input text value. Edit
 
 
 ---
-Good luck.
+Good luck. 
