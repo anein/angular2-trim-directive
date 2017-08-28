@@ -15,17 +15,14 @@ cache:
   bundler: true
   directories:
     - node_modules
-
 script:
   - npm run build
-
-after_success:
-  - npm run build
-
 branches:
   only:
     - master
-
+    
+before_deploy:
+  - npm run build
 deploy:
   provider: npm
   email: al.eine@protonmail.com
