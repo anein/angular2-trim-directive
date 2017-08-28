@@ -1,17 +1,16 @@
 {
   "$schema" : "./node_modules/@angular/cli/lib/config/schema.json",
   "project" : {
-    "name": "input-trim"
+    "name": "ng2-trim-directive"
   },
   "apps"    : [
     {
       "root"             : "./",
       "outDir"           : "example/dist",
       "index"            : "example/src/index.html",
-      "outIndex"         : "example/dist/index.html",
       "main"             : "example/src/main.ts",
       "polyfills"        : "example/src/polyfills.ts",
-      "tsconfig"         : "tsconfig.json",
+      "tsconfig"         : "example/src/tsconfig.json",
       "scripts"          : [],
       "environmentSource": "./config/environments/environment.ts",
       "environments"     : {
