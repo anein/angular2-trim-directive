@@ -1,6 +1,6 @@
 {
   "name"           : "ng2-trim-directive",
-  "version"        : "1.0.3",
+  "version"        : "1.0.4",
   "author"         : "Alexander Ein (@alexanderein)",
   "license"        : "MIT",
   "repository"     : {
@@ -21,7 +21,8 @@
   "main"           : "dist/input-trim.directive.js",
   "types"          : "dist/input-trim.directive.d.ts",
   "files"          : [
-    "dist"
+    "dist",
+    "LICENSE"
   ],
   "scripts"        : {
     "eg:build": "ng build --app 0",

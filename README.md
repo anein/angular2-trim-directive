@@ -1,20 +1,27 @@
-# angular2-trim-directive
-This directive trims whitespaces from the end of an input text value. Edit
+# ng2-trim-directive
+[![Build Status](https://travis-ci.org/anein/angular2-trim-directive.svg?branch=master)](https://travis-ci.org/anein/angular2-trim-directive)
 
+>The directive trims whitespaces from the end of an input text value.
 
 ## Usage 
 
-1. Add the directive to the module 'delarations' section.
+1. Install the directive.
 
-  ```typescript
-  @NgModule( {
-    ...
-    declarations: [ ..., InputTrimDirective ],
-    ...
-  } )
+  ```bash
+    npm i ng2-trim-directive
   ```
 
-2. Add the "trim" attribute to a text input element.
+2. Add the directive to your module 'declarations' section.
+
+  ```typescript
+    @NgModule( {
+      ...
+      declarations: [ ..., InputTrimDirective ],
+      ...
+    } )
+  ```
+
+3. Add the "trim" attribute to a text input element.
   ```html
      <input type="text" trim />
   ```
