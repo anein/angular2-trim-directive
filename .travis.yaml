@@ -1,0 +1,17 @@
+sudo: false
+language: node_js
+notifications:
+  email: false
+node_js:
+  - '6'
+before_script:
+  - npm prune
+install:
+  - npm install
+script:
+  - npm run build
+branches:
+  only:
+    - v4
+  except:
+    - /^v\d+\.\d+\.\d+$/
