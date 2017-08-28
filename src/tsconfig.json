@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module"                : "commonjs",
+    "target"                : "es5",
+    "noImplicitAny"         : false,
+    "sourceMap"             : false,
+    "experimentalDecorators": true,
+    "sourceRoot"            : ".",
+    "lib"                   : [
+      "es2017",
+      "dom"
+    ],
+    "exclude"          : [
+      "node_modules"
+    ],
+    "formatCodeOptions"     : {
+      "indentSize"                                                : 2,
+      "tabSize"                                                   : 2,
+      "insertSpaceAfterCommaDelimiter"                            : true,
+      "insertSpaceAfterSemicolonInForStatements"                  : true,
+      "insertSpaceBeforeAndAfterBinaryOperators"                  : true,
+      "insertSpaceAfterKeywordsInControlFlowStatements"           : true,
+      "insertSpaceAfterFunctionKeywordForAnonymousFunctions"      : true,
+      "insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true
+    }
+  }
+}
