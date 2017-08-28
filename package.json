@@ -1,16 +1,16 @@
 {
-  "name"            : "ng2-trim-directive",
-  "version"         : "1.0.1",
-  "author"          : "Alexander Ein (@alexanderein)",
-  "license"         : "MIT",
-  "repository"      : {
+  "name"           : "ng2-trim-directive",
+  "version"        : "1.0.1",
+  "author"         : "Alexander Ein (@alexanderein)",
+  "license"        : "MIT",
+  "repository"     : {
     "type": "git",
     "url" : "git+ssh://github.com/anein/angular2-trim-directive.git"
   },
-  "bugs"            : {
+  "bugs"           : {
     "url": "https://github.com/anein/angular2-trim-directive/issues"
   },
-  "keywords"        : [
+  "keywords"       : [
     "angular",
     "ng2",
     "directive",
@@ -18,14 +18,17 @@
     "trim",
     "javascript"
   ],
-  "main"            : "dist/input-trim.directive.js",
-  "types"           : "dist/input-trim.directive.d.ts",
-  "scripts"         : {
+  "main"           : "dist/input-trim.directive.js",
+  "types"          : "dist/input-trim.directive.d.ts",
+  "files"          : [
+    "dist"
+  ],
+  "scripts"        : {
     "eg:build": "ng build --app 0",
     "eg:serve": "ng serve --app 0",
     "build"   : "tsc --project ./tsconfig.json"
   },
-  "devDependencies" : {
+  "devDependencies": {
     "@angular/core"                    : "^4.3.4",
     "@angular/forms"                   : "^4.3.4",
     "@angular/cli"                     : "^1.3.0",
