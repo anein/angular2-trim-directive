@@ -32,3 +32,6 @@ example
 src
 yarn.lock
 .gitignore
+.travis.yml
+tslint.json
+tsconfig.json
