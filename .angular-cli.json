@@ -11,6 +11,8 @@
       "main"             : "example/src/main.ts",
       "polyfills"        : "example/src/polyfills.ts",
       "tsconfig"         : "example/src/tsconfig.json",
+      "test"             : "test/tests.ts",
+      "testTsconfig"     : "./tsconfig.spec.json",
       "scripts"          : [],
       "environmentSource": "./config/environments/environment.ts",
       "environments"     : {
@@ -24,6 +26,11 @@
       "project": "./tslint.json"
     }
   ],
+  "test"    : {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
   "defaults": {
     "build"           : {
       "sourcemaps": false
