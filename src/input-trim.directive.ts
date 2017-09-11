@@ -1,18 +1,32 @@
 import {
-  Directive, EventEmitter, HostListener, Input, Output
+  Directive, HostListener, Input
 } from '@angular/core';
-import { DefaultValueAccessor } from '@angular/forms';
+import {
+  DefaultValueAccessor, NG_VALUE_ACCESSOR
+} from '@angular/forms';
 
 @Directive( {
-  selector: 'input[trim]',
+  selector : 'input[trim]',
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: InputTrimDirective, multi: true }
+  ],
+
 } )
 export class InputTrimDirective extends DefaultValueAccessor {
 
+  // set a new value to the field and model.
+  private set value( val: any ) {
+
+    // update element
+    this.writeValue( val );
+
+    // update model
+    this.onChange( val );
+
+  }
+
   // Get a value of the trim attribute if it was set.
   @Input() trim: string;
-
-  // this property is necessary to update the model.
-  @Output() ngModelChange: EventEmitter<any> = new EventEmitter();
 
   /**
    * Updates the value on the blur event.
@@ -38,18 +52,9 @@ export class InputTrimDirective extends DefaultValueAccessor {
    */
   private updateValue( event: string, value: string ): void {
 
-    // check if the user has set an optional attribute.
-    if (this.trim !== '' && event !== this.trim) {
-      return;
-    }
+    // check if the user has set an optional attribute. Trimmmm!!! Uhahahaha!
+    this.value = (this.trim !== '' && event !== this.trim) ? value : value.trim();
 
-    // trim! Uhahahaha!
-    value = value.trim();
-
-    // update model
-    this.ngModelChange.emit( value );
-    // update element
-    this.writeValue( value );
   }
 
 }
