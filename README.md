@@ -1,7 +1,9 @@
 # ng2-trim-directive
 [![Build Status](https://travis-ci.org/anein/angular2-trim-directive.svg?branch=master)](https://travis-ci.org/anein/angular2-trim-directive)
+[![npm](https://img.shields.io/npm/v/ng2-trim-directive.svg)](https://www.npmjs.com/package/ng2-trim-directive)
 
 >The directive trims whitespaces from the end of an input text value.
+
 
 ## Usage 
 
