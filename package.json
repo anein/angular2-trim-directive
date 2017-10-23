@@ -18,8 +18,8 @@
     "trim",
     "javascript"
   ],
-  "main"           : "dist/input-trim.directive.js",
-  "types"          : "dist/input-trim.directive.d.ts",
+  "main"           : "dist/index.js",
+  "types"          : "dist/index.d.ts",
   "files"          : [
     "dist",
     "LICENSE"
@@ -27,7 +27,7 @@
   "scripts"        : {
     "eg:build": "ng build --app 0",
     "eg:serve": "ng serve --app 0",
-    "build"   : "tsc --project ./tsconfig.json",
+    "build"   : "ngc --project ./tsconfig.json",
     "test"    : "ng test"
   },
   "devDependencies": {
