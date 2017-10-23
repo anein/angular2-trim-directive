@@ -1,6 +1,6 @@
 {
   "name"           : "ng2-trim-directive",
-  "version"        : "1.0.5",
+  "version"        : "2.0.0",
   "author"         : "Alexander Ein (@alexanderein)",
   "license"        : "MIT",
   "repository"     : {
