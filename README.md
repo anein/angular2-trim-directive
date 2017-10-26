@@ -7,21 +7,24 @@
 
 ## Usage 
 
-1. Install the directive.
+1. Install `ng2-trim-directive`.
 
   ```bash
     npm i ng2-trim-directive
   ```
 
-2. Add the directive to your module 'declarations' section.
+2. Import `InputTrimModule` to your Angular module.
 
-  ```typescript
-    @NgModule( {
-      ...
-      declarations: [ ..., InputTrimDirective ],
-      ...
-    } )
-  ```
+```typescript
+import { InputTrimModule } from 'ng2-trim-directive';
+@NgModule({
+  imports: [
+    ...
+    InputTrimModule,
+    ...
+  ],
+  ...
+```
 
 3. Add the "trim" attribute to a text input element.
   ```html

@@ -2,13 +2,16 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { InputTrimDirective } from '../../../src/input-trim.directive';
+import { InputTrimModule } from '../../../src/';
 
 @NgModule( {
-  imports     : [BrowserModule, FormsModule],
+  imports     : [
+    BrowserModule,
+    FormsModule,
+    InputTrimModule,
+  ],
   declarations: [
     AppComponent,
-    InputTrimDirective
   ],
   bootstrap   : [AppComponent]
 } )
