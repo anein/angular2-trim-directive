@@ -1,6 +1,6 @@
-import { TestBed, ComponentFixture, tick, fakeAsync, inject, async } from '@angular/core/testing';
+import { TestBed, ComponentFixture, tick, fakeAsync} from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { InputTrimDirective } from '../src/input-trim.directive';
+import { InputTrimModule } from '../src';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
@@ -35,8 +35,8 @@ describe( 'Tests: Template-Driven Form', () => {
 
     // create a component fixture
     TestBed.configureTestingModule( {
-      imports     : [FormsModule],
-      declarations: [InputTrimDirective, TemplateDrivenFormComponent]
+      imports     : [FormsModule, InputTrimModule],
+      declarations: [TemplateDrivenFormComponent]
     } );
 
   } );

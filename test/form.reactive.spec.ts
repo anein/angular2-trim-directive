@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { InputTrimDirective } from '../src/input-trim.directive';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { InputTrimModule } from '../src';
 import { By } from '@angular/platform-browser';
 import { tick } from '@angular/core/testing';
 
@@ -44,8 +44,8 @@ describe( 'Tests: Reactive Form', () => {
 
   beforeEach( () => {
     TestBed.configureTestingModule( {
-      imports     : [ReactiveFormsModule],
-      declarations: [InputTrimDirective, ReactiveFormComponent]
+      imports     : [ReactiveFormsModule, InputTrimModule],
+      declarations: [ReactiveFormComponent]
     } );
   } );
 
