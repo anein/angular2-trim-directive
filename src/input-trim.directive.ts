@@ -6,7 +6,7 @@ import {
 } from '@angular/forms';
 
 @Directive( {
-  selector : 'input[trim]',
+  selector : 'input[trim], textarea[trim]',
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: InputTrimDirective, multi: true }
   ],
