@@ -1,11 +1,41 @@
+<!-- input -->
 <div>
-  <label for="ex-trim">My input!</label>
-  <input id="ex-trim" name="example" [(ngModel)]="example" value="" trim="blur"/>
-  <button type="button" (click)="onSubmit()">Submit!</button>
+  <h2>
+    Input Example
+  </h2>
+  <label for="ex.input">My input</label>
+  <input id="ex.input" name="example" [(ngModel)]="exampleInput" value="" trim="blur"/>
+  <button type="button" (click)="onInputSubmit()">Submit!</button>
   <div>
-    <span>Value: {{ example }} </span>
+    <pre>Value: {{ exampleInput }} </pre>
   </div>
   <div>
-    <span>Length: {{ example.length }} </span>
+    <span>Length: {{ exampleInput.length }} </span>
   </div>
 </div>
+
+<!--textarea-->
+
+<div>
+  <h2>
+    Textarea Example
+  </h2>
+  <label for="ex.textarea">My textarea</label>
+  <textarea name="ex.textarea" id="ex.textarea" [(ngModel)]="exampleTextarea" cols="30" rows="10"
+            trim="blur"></textarea>
+  <button type="button" (click)="onTextareaSubmit()">Submit!</button>
+  <!--value-->
+  <div>
+    Value:
+    <pre> {{ exampleTextarea }} </pre>
+  </div>
+  <!--length -->
+  <div>
+    Length: {{ exampleTextarea.length }}
+  </div>
+  <!--lines-->
+  <div>
+    Lines: {{ countLines() }}
+  </div>
+</div>
+

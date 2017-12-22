@@ -1,17 +1,26 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 
 @Component( {
   'selector'   : 'in-app',
-  'templateUrl': './app.component.html'
+  'templateUrl': './app.component.html',
+  'styles'     : ['pre { background-color: whitesmoke;}']
 } )
 export class AppComponent {
 
-  example: string = '';
+  exampleInput: string = '';
 
-  onSubmit(): void {
-    console.log( this.example );
-    console.log( this.example.length );
+  exampleTextarea: string = '';
+
+  onInputSubmit(): void {
+    console.log( `Input value: ${this.exampleInput}. Input length: ${this.exampleInput.length} ` );
+  }
+
+  onTextareaSubmit(): void {
+    console.log( `Input value: ${this.exampleTextarea}. Input length: ${this.exampleTextarea.length} ` );
+  }
+
+  countLines(): number {
+    return (this.exampleTextarea) ? this.exampleTextarea.split( '\n' ).length : 0;
   }
 
 }
