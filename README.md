@@ -36,8 +36,9 @@ import { InputTrimModule } from 'ng2-trim-directive';
 
   ```html
      <input type="text" trim="blur" />
+     <textarea ... trim="blur" ></textarea>
   ```
-  **note**: if you use the directive with <textarea> but without the blur event, it will behave like the text input element.
+  **note**: if you use the directive with <textarea> without setting the blur event, it will behave like the text input element.
 
 ---
 Good luck. 
