@@ -1,22 +1,46 @@
 import {
-  Directive, HostListener, Input
+  Directive, ElementRef, HostListener, Inject, Input, Optional,
+  Renderer2
 } from '@angular/core';
-import {
-  DefaultValueAccessor, NG_VALUE_ACCESSOR
-} from '@angular/forms';
+import { COMPOSITION_BUFFER_MODE, DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Directive( {
   selector : 'input[trim], textarea[trim]',
-  providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: InputTrimDirective, multi: true }
-  ],
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: InputTrimDirective, multi: true }]
 
 } )
 export class InputTrimDirective extends DefaultValueAccessor {
 
-  // set a new value to the field and model.
-  private set value( val: any ) {
+  /**
+   * Keep the type of input element in a cache.
+   *
+   * @type {string}
+   * @private
+   */
+  private _type: string = 'text';
 
+  // Source services to modify elements.
+  private _sourceRenderer: Renderer2;
+  private _sourceElementRef: ElementRef;
+
+  // Get a value of the trim attribute if it was set.
+  @Input() trim: string;
+
+  // Get the element type
+  @Input()
+  get type(): string {
+    return this._type;
+  }
+
+  set type( value: string ) {
+    this._type = value || 'text';
+  }
+
+  /**
+   * Set a new value to the field and model.
+   *
+   */
+  set value( val: any ) {
     // update element
     this.writeValue( val );
 
@@ -24,9 +48,6 @@ export class InputTrimDirective extends DefaultValueAccessor {
     this.onChange( val );
 
   }
-
-  // Get a value of the trim attribute if it was set.
-  @Input() trim: string;
 
   /**
    * Updates the value on the blur event.
@@ -42,6 +63,33 @@ export class InputTrimDirective extends DefaultValueAccessor {
   @HostListener( 'input', ['$event.type', '$event.target.value'] )
   onInput( event: string, value: string ): void {
     this.updateValue( event, value );
+  }
+
+  constructor( @Inject( Renderer2 ) renderer: Renderer2,
+               @Inject( ElementRef ) elementRef: ElementRef,
+               @Optional() @Inject( COMPOSITION_BUFFER_MODE ) compositionMode: boolean ) {
+    super( renderer, elementRef, compositionMode );
+
+    this._sourceRenderer = renderer;
+    this._sourceElementRef = elementRef;
+  }
+
+  /**
+   * Writes a new value to the element based on the type of input element.
+   *
+   * FIX: https://github.com/anein/angular2-trim-directive/issues/9
+   *
+   * @param {any} value - new value
+   */
+  public writeValue( value: any ): void {
+
+    this._sourceRenderer.setProperty( this._sourceElementRef.nativeElement, 'value', value );
+
+    // a dirty trick (or magic) goes here: it updates the element value if `setProperty` doesn't set it for some reason.
+    if (this._type !== 'text') {
+      this._sourceRenderer.setAttribute( this._sourceElementRef.nativeElement, 'value', value );
+    }
+
   }
 
   /**
