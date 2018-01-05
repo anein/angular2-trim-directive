@@ -106,6 +106,21 @@ describe( 'Tests: Reactive Form', () => {
 
     } );
 
+    it( 'should trim whitespaces of value of `url` input', () => {
+
+      inputElement.value = valueWithWhitespaces;
+      inputElement.type = 'url';
+
+      inputElement.dispatchEvent( new Event( 'input' ) );
+
+      fixture.detectChanges();
+
+      expect( inputElement.value ).toBe( value, 'Input value is not trimmed' );
+      expect( componentInstance.myGroup.value.example ).toBe( value, 'Model is not trimmed' );
+      expect( componentInstance.myGroup.value.example ).toBe( inputElement.value );
+
+    } );
+
     it( 'should trim a value w/ whitespaces on two-way binding.', fakeAsync( () => {
 
       componentInstance.myGroup.controls.example.setValue( valueWithWhitespaces );

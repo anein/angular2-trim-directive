@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, tick, fakeAsync} from '@angular/core/testing';
+import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { InputTrimModule } from '../src';
 import { By } from '@angular/platform-browser';
@@ -87,6 +87,21 @@ describe( 'Tests: Template-Driven Form', () => {
       inputElement.value = valueWithWhitespaces;
 
       inputElement.dispatchEvent( new Event( 'blur' ) );
+
+      fixture.detectChanges();
+
+      expect( inputElement.value ).toBe( value, 'Input value is not trimmed' );
+      expect( componentInstance.example ).toBe( value, 'Module is not trimmed' );
+      expect( componentInstance.example ).toBe( inputElement.value );
+
+    } );
+
+    it( 'should trim whitespaces of value of `email` input', () => {
+
+      inputElement.value = valueWithWhitespaces;
+      inputElement.type = 'email';
+
+      inputElement.dispatchEvent( new Event( 'input' ) );
 
       fixture.detectChanges();
 
