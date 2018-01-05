@@ -1,41 +1,68 @@
 <!-- input -->
-<div>
-  <h2>
-    Input Example
-  </h2>
-  <label for="ex.input">My input</label>
-  <input id="ex.input" name="example" [(ngModel)]="exampleInput" value="" trim="blur"/>
-  <button type="button" (click)="onInputSubmit()">Submit!</button>
-  <div>
-    <pre>Value: {{ exampleInput }} </pre>
-  </div>
-  <div>
-    <span>Length: {{ exampleInput.length }} </span>
-  </div>
-</div>
 
-<!--textarea-->
+<h2 class="mt-5 mb-5">
+  Awesome form
+</h2>
 
-<div>
-  <h2>
-    Textarea Example
-  </h2>
-  <label for="ex.textarea">My textarea</label>
-  <textarea name="ex.textarea" id="ex.textarea" [(ngModel)]="exampleTextarea" cols="30" rows="10"
-            trim="blur"></textarea>
-  <button type="button" (click)="onTextareaSubmit()">Submit!</button>
-  <!--value-->
-  <div>
-    Value:
-    <pre> {{ exampleTextarea }} </pre>
+<form novalidate [formGroup]="exampleForm" class="mx-auto">
+  <!--text-->
+  <div class="form-group">
+    <label>
+      Text.
+      <small>
+        <i>status: {{ exampleForm.controls.text.status}}</i>
+      </small>
+    </label>
+    <input formControlName="text" placeholder="text" class="form-control" trim="blur"/>
   </div>
-  <!--length -->
-  <div>
-    Length: {{ exampleTextarea.length }}
-  </div>
-  <!--lines-->
-  <div>
-    Lines: {{ countLines() }}
-  </div>
-</div>
 
+  <!--email-->
+  <div class="form-group">
+    <label>
+      Email.
+      <small>
+        <i>status: {{ exampleForm.controls.email.status}}</i>
+      </small>
+    </label>
+    <input formControlName="email" placeholder="email@example.com" type="email" class="form-control" trim/>
+  </div>
+
+  <!-- number -->
+  <div class="form-group">
+    <label>
+      Number
+      <small>
+        <i>status: {{ exampleForm.controls.number.status}}</i>
+      </small>
+    </label>
+    <input formControlName="number" placeholder="0" type="number" class="form-control" trim="blur"/>
+  </div>
+
+  <!-- url -->
+  <div class="form-group">
+    <label>
+      URL
+      <small>
+        <i>status: {{ exampleForm.controls.url.status}}</i>
+      </small>
+    </label>
+    <input formControlName="url" placeholder="www.github.com" type="url" class="form-control" trim="blur"/>
+  </div>
+
+  <!--textarea-->
+  <div class="form-group">
+    <label>
+      Textarea.(maxLength=10)
+      <small>
+        <i>status: {{ exampleForm.controls.textarea.status}}</i>
+      </small>
+    </label>
+    <textarea formControlName="textarea" placeholder="textarea" class="form-control" trim="blur"></textarea>
+  </div>
+  <hr/>
+  <pre>
+    <p> Form values {{ exampleForm.value | json }}</p>
+    <p> Form status {{ exampleForm.status | json }}</p>
+  </pre>
+
+</form>
