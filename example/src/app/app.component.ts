@@ -1,26 +1,36 @@
-import { Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy, Component, Inject, Input,
+  ViewEncapsulation
+} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component( {
-  'selector'   : 'in-app',
-  'templateUrl': './app.component.html',
-  'styles'     : ['pre { background-color: whitesmoke;}']
+  'selector'     : 'in-app',
+  'templateUrl'  : './app.component.html',
+  'styles'       : ['pre { background-color: whitesmoke;}'],
+  encapsulation  : ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class AppComponent {
 
-  exampleInput: string = '';
+  exampleForm: FormGroup;
 
-  exampleTextarea: string = '';
+  constructor( @Inject( FormBuilder ) private fb: FormBuilder ) {
 
-  onInputSubmit(): void {
-    console.log( `Input value: ${this.exampleInput}. Input length: ${this.exampleInput.length} ` );
+    this.exampleForm = this.fb.group( {
+
+      'text'    : ['', Validators.required],
+      'email'   : ['', [Validators.required, Validators.email]],
+      'number'  : ['', [Validators.required]],
+      'url'     : ['', [Validators.required]],
+      'textarea': ['', [Validators.required, Validators.maxLength( 10 )]]
+
+    } );
+
   }
 
-  onTextareaSubmit(): void {
-    console.log( `Input value: ${this.exampleTextarea}. Input length: ${this.exampleTextarea.length} ` );
-  }
-
-  countLines(): number {
-    return (this.exampleTextarea) ? this.exampleTextarea.split( '\n' ).length : 0;
+  onSubmit(): void {
+    //
   }
 
 }
