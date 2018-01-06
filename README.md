@@ -4,6 +4,9 @@
 
 >The directive trims whitespaces from the end of an input text value.
 
+## Demo
+
+Play with the directive here [https://anein.github.io/angular2-trim-directive/](https://anein.github.io/angular2-trim-directive/).
 
 ## Usage 
 
