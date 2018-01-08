@@ -1,9 +1,10 @@
 {
-  "compilerOptions": {
+  "compilerOptions"       : {
     "declaration"           : true,
     "experimentalDecorators": true,
     "module"                : "commonjs",
     "noImplicitAny"         : false,
+    "rootDir"               : "src",
     "outDir"                : "dist",
     "sourceMap"             : false,
     "target"                : "es5",
@@ -14,10 +15,10 @@
       "dom"
     ]
   },
-  "include"        : [
+  "include"               : [
     "src/**/*"
   ],
-  "exclude"        : [
+  "exclude"               : [
     "node_modules",
     "**/*.spec.ts"
   ],
