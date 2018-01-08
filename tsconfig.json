@@ -1,20 +1,31 @@
 {
-  "compilerOptions"  : {
-    "module"                : "commonjs",
-    "target"                : "es5",
-    "noImplicitAny"         : false,
-    "sourceMap"             : false,
+  "compilerOptions"       : {
+    "declaration"           : true,
     "experimentalDecorators": true,
-    "sourceRoot"            : ".",
+    "module"                : "commonjs",
+    "noImplicitAny"         : false,
+    "rootDir"               : "src",
+    "outDir"                : "dist",
+    "sourceMap"             : false,
+    "target"                : "es5",
+    "pretty"                : true,
+    "removeComments"        : true,
     "lib"                   : [
       "es2017",
       "dom"
     ]
   },
-  "exclude"          : [
-    "node_modules"
+  "include"               : [
+    "src/**/*"
   ],
-  "formatCodeOptions": {
+  "exclude"               : [
+    "node_modules",
+    "**/*.spec.ts"
+  ],
+  "angularCompilerOptions": {
+    "strictMetadataEmit": true
+  },
+  "formatCodeOptions"     : {
     "indentSize"                                                : 2,
     "tabSize"                                                   : 2,
     "insertSpaceAfterCommaDelimiter"                            : true,

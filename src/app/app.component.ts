@@ -1,6 +1,5 @@
 import {
-  ChangeDetectionStrategy, Component, Inject, Input,
-  ViewEncapsulation
+  ChangeDetectionStrategy, Component, Inject, ViewEncapsulation
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
