@@ -11,11 +11,16 @@ Play with the directive here [https://anein.github.io/angular2-trim-directive/](
 ## Usage 
 
 1. Install `ng2-trim-directive`.
-
+  
+  **Angular 5**
   ```bash
     npm i ng2-trim-directive
   ```
-
+  **Angular 4**
+  ```bash
+    npm i ng2-trim-directive@2.1.0
+  ```
+  
 2. Import `InputTrimModule` to your Angular module.
 
 ```typescript
