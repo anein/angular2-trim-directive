@@ -96,6 +96,10 @@ describe( 'Tests: Reactive Form', () => {
     it( 'should trim whitespaces from the end on the BLUR event', () => {
 
       inputElement.value = valueWithWhitespaces;
+
+      expect( componentInstance.myGroup.get( 'example' ).touched ).toBeFalsy();
+      expect( componentInstance.myGroup.touched ).toBeFalsy();
+
       inputElement.dispatchEvent( new Event( 'blur' ) );
 
       fixture.detectChanges();
@@ -103,6 +107,9 @@ describe( 'Tests: Reactive Form', () => {
       expect( inputElement.value ).toBe( value, 'Input value is not trimmed' );
       expect( componentInstance.myGroup.value.example ).toBe( value, 'Model is not trimmed' );
       expect( componentInstance.myGroup.value.example ).toBe( inputElement.value );
+
+      expect( componentInstance.myGroup.get( 'example' ).touched ).toBeTruthy();
+      expect( componentInstance.myGroup.touched ).toBeTruthy();
 
     } );
 
@@ -128,6 +135,7 @@ describe( 'Tests: Reactive Form', () => {
       fixture.detectChanges();
       tick();
 
+      // tslint:disable-next-line: max-line-length
       expect( componentInstance.myGroup.value.example ).toBe( inputElement.value, 'Value of model and input is the same' );
 
       inputElement.dispatchEvent( new Event( 'input' ) );
@@ -162,6 +170,7 @@ describe( 'Tests: Reactive Form', () => {
       fixture.detectChanges();
 
       expect( inputElement.value ).not.toBe( value, 'Input value is trimmed' );
+      // tslint:disable-next-line: max-line-length
       expect( componentInstance.myGroup.value.example ).toBe( valueWithWhitespaces, 'Model is trimmed' );
 
       expect( componentInstance.myGroup.value.example ).toBe( inputElement.value );
@@ -172,6 +181,9 @@ describe( 'Tests: Reactive Form', () => {
 
       inputElement.value = valueWithWhitespaces;
 
+      expect( componentInstance.myGroup.get( 'example' ).touched ).toBeFalsy();
+      expect( componentInstance.myGroup.touched ).toBeFalsy();
+
       inputElement.dispatchEvent( new Event( 'blur' ) );
 
       fixture.detectChanges();
@@ -180,10 +192,13 @@ describe( 'Tests: Reactive Form', () => {
       expect( componentInstance.myGroup.value.example ).toBe( value, 'Module is not trimmed' );
       expect( componentInstance.myGroup.value.example ).toBe( inputElement.value );
 
+      expect( componentInstance.myGroup.get( 'example' ).touched ).toBeTruthy();
+      expect( componentInstance.myGroup.touched ).toBeTruthy();
     } );
 
     it( 'should trim whitespaces from the end of Example2 on the INPUT event', () => {
 
+      // tslint:disable-next-line: max-line-length
       const inputElement2 = fixture.debugElement.query( By.css( 'input[name="example2"]' ) ).nativeElement;
 
       inputElement2.value = valueWithWhitespaces;
