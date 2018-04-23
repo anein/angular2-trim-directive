@@ -11,7 +11,9 @@ import { FormsModule } from '@angular/forms';
   template: `
     <h2>TemplateDrivenFormComponent</h2>
     <label for="ex-trim">My input!</label>
-    <input id="ex-trim" name="example" [(ngModel)]="example" value="" trim/>
+    <input id="ex-trim" name="example" #exampleModel="ngModel" [(ngModel)]="example" value="" trim/>
+    <span *ngIf="!exampleModel.touched">Example Not Touched</span>
+    <span *ngIf="exampleModel.touched">Example Touched</span>
   `
 } )
 class TemplateDrivenFormComponent {
@@ -77,7 +79,7 @@ describe( 'Tests: Template-Driven Form', () => {
       fixture.detectChanges();
 
       expect( inputElement.value ).toBe( value, 'Input value is not trimmed' );
-      expect( componentInstance.example ).toBe( value, 'Module is not trimmed' );
+      expect( componentInstance.example ).toBe( value, 'Model is not trimmed' );
       expect( componentInstance.example ).toBe( inputElement.value );
 
     } );
@@ -86,13 +88,21 @@ describe( 'Tests: Template-Driven Form', () => {
 
       inputElement.value = valueWithWhitespaces;
 
+      fixture.detectChanges();
+
+      let el = fixture.debugElement.query( By.css( 'span' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Not Touched' );
+
       inputElement.dispatchEvent( new Event( 'blur' ) );
 
       fixture.detectChanges();
 
       expect( inputElement.value ).toBe( value, 'Input value is not trimmed' );
-      expect( componentInstance.example ).toBe( value, 'Module is not trimmed' );
+      expect( componentInstance.example ).toBe( value, 'Model is not trimmed' );
       expect( componentInstance.example ).toBe( inputElement.value );
+
+      el = fixture.debugElement.query( By.css( 'span' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Touched' );
 
     } );
 
@@ -106,7 +116,7 @@ describe( 'Tests: Template-Driven Form', () => {
       fixture.detectChanges();
 
       expect( inputElement.value ).toBe( value, 'Input value is not trimmed' );
-      expect( componentInstance.example ).toBe( value, 'Module is not trimmed' );
+      expect( componentInstance.example ).toBe( value, 'Model is not trimmed' );
       expect( componentInstance.example ).toBe( inputElement.value );
 
     } );
@@ -118,12 +128,13 @@ describe( 'Tests: Template-Driven Form', () => {
       fixture.detectChanges();
       tick();
 
+      // tslint:disable-next-line: max-line-length
       expect( componentInstance.example ).toBe( inputElement.value, 'Value of model and input is the same' );
 
       inputElement.dispatchEvent( new Event( 'input' ) );
 
       expect( inputElement.value ).toBe( value, 'Input value is not trimmed' );
-      expect( componentInstance.example ).toBe( value, 'Module is not trimmed' );
+      expect( componentInstance.example ).toBe( value, 'Model is not trimmed' );
 
     } ) );
 
@@ -131,7 +142,11 @@ describe( 'Tests: Template-Driven Form', () => {
 
   describe( 'Directive with the blur option', () => {
 
-    const template = `<input name="example" [(ngModel)]="example" value="" trim="blur"/>`;
+    const template = `
+      <input name="example" #exampleModel="ngModel" [(ngModel)]="example" value="" trim="blur"/>
+      <span *ngIf="!exampleModel.touched">Example Not Touched</span>
+      <span *ngIf="exampleModel.touched">Example Touched</span>
+    `;
 
     beforeEach( () => {
       TestBed.overrideTemplate( TemplateDrivenFormComponent, template );
@@ -157,13 +172,21 @@ describe( 'Tests: Template-Driven Form', () => {
 
       inputElement.value = valueWithWhitespaces;
 
+      fixture.detectChanges();
+
+      let el = fixture.debugElement.query( By.css( 'span' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Not Touched' );
+
       inputElement.dispatchEvent( new Event( 'blur' ) );
 
       fixture.detectChanges();
 
       expect( inputElement.value ).toBe( value, 'Input value is not trimmed' );
-      expect( componentInstance.example ).toBe( value, 'Module is not trimmed' );
+      expect( componentInstance.example ).toBe( value, 'Model is not trimmed' );
       expect( componentInstance.example ).toBe( inputElement.value );
+
+      el = fixture.debugElement.query( By.css( 'span' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Touched' );
 
     } );
 

@@ -55,6 +55,8 @@ export class InputTrimDirective extends DefaultValueAccessor {
   @HostListener( 'blur', ['$event.type', '$event.target.value'] )
   onBlur( event: string, value: string ): void {
     this.updateValue( event, value );
+
+    this.onTouched();
   }
 
   /**
