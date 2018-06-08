@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InputTrimModule } from '../src';
 import { By } from '@angular/platform-browser';
-import { tick } from '@angular/core/testing';
 
 @Component( {
   template: `
@@ -14,19 +13,17 @@ import { tick } from '@angular/core/testing';
     </form>
   `
 } )
-class ReactiveFormComponent implements OnInit {
+class ReactiveFormComponent {
 
-  myGroup: FormGroup;
+  readonly example = new FormControl( '' );
+  readonly example2 = new FormControl( '' );
+
+  readonly myGroup = new FormGroup( {
+    example : this.example,
+    example2: this.example2
+  } );
 
   constructor() {
-  }
-
-  ngOnInit() {
-
-    this.myGroup = new FormGroup( {
-      example : new FormControl( '' ),
-      example2: new FormControl( '' )
-    } );
   }
 
 }
@@ -72,6 +69,16 @@ describe( 'Tests: Reactive Form', () => {
 
     } );
 
+    it( 'should write value to the element when the form control value is set', () => {
+
+      componentInstance.example.setValue( value );
+      expect( inputElement.value ).toBe( value );
+
+      componentInstance.example.setValue( valueWithWhitespaces );
+      expect( inputElement.value ).toBe( valueWithWhitespaces );
+
+    } );
+
   } );
 
   describe( 'Directive without additional options.', () => {
@@ -80,7 +87,10 @@ describe( 'Tests: Reactive Form', () => {
 
     it( 'should trim whitespaces from the end on the INPUT event', () => {
 
-      inputElement.value = valueWithWhitespaces;
+      componentInstance.example.setValue( valueWithWhitespaces );
+
+      expect( componentInstance.example.pristine ).toBeTruthy();
+      expect( componentInstance.myGroup.pristine ).toBeTruthy();
 
       inputElement.dispatchEvent( new Event( 'input' ) );
 
@@ -91,14 +101,43 @@ describe( 'Tests: Reactive Form', () => {
       expect( componentInstance.myGroup.value.example ).toBe( inputElement.value );
       expect( componentInstance.myGroup.value.example2 ).toBe( '' );
 
+      expect( componentInstance.example.pristine ).toBeFalsy();
+      expect( componentInstance.myGroup.pristine ).toBeFalsy();
+
+    } );
+
+    it( 'should keep pristine from the end on the BLUR event w/o changes', () => {
+
+      componentInstance.example.setValue( value );
+
+      expect( componentInstance.example.touched ).toBeFalsy();
+      expect( componentInstance.myGroup.touched ).toBeFalsy();
+      expect( componentInstance.example.pristine ).toBeTruthy();
+      expect( componentInstance.myGroup.pristine ).toBeTruthy();
+
+      inputElement.dispatchEvent( new Event( 'blur' ) );
+
+      fixture.detectChanges();
+
+      expect( inputElement.value ).toBe( value );
+      expect( componentInstance.myGroup.value.example ).toBe( value );
+      expect( componentInstance.myGroup.value.example ).toBe( inputElement.value );
+
+      expect( componentInstance.example.touched ).toBeTruthy();
+      expect( componentInstance.myGroup.touched ).toBeTruthy();
+      expect( componentInstance.example.pristine ).toBeTruthy();
+      expect( componentInstance.myGroup.pristine ).toBeTruthy();
+
     } );
 
     it( 'should trim whitespaces from the end on the BLUR event', () => {
 
-      inputElement.value = valueWithWhitespaces;
+      componentInstance.example.setValue( valueWithWhitespaces );
 
-      expect( componentInstance.myGroup.get( 'example' ).touched ).toBeFalsy();
+      expect( componentInstance.example.touched ).toBeFalsy();
       expect( componentInstance.myGroup.touched ).toBeFalsy();
+      expect( componentInstance.example.pristine ).toBeTruthy();
+      expect( componentInstance.myGroup.pristine ).toBeTruthy();
 
       inputElement.dispatchEvent( new Event( 'blur' ) );
 
@@ -108,14 +147,16 @@ describe( 'Tests: Reactive Form', () => {
       expect( componentInstance.myGroup.value.example ).toBe( value, 'Model is not trimmed' );
       expect( componentInstance.myGroup.value.example ).toBe( inputElement.value );
 
-      expect( componentInstance.myGroup.get( 'example' ).touched ).toBeTruthy();
+      expect( componentInstance.example.touched ).toBeTruthy();
       expect( componentInstance.myGroup.touched ).toBeTruthy();
+      expect( componentInstance.example.pristine ).toBeFalsy();
+      expect( componentInstance.myGroup.pristine ).toBeFalsy();
 
     } );
 
     it( 'should trim whitespaces of value of `url` input', () => {
 
-      inputElement.value = valueWithWhitespaces;
+      componentInstance.example.setValue( valueWithWhitespaces );
       inputElement.type = 'url';
 
       inputElement.dispatchEvent( new Event( 'input' ) );
@@ -163,7 +204,7 @@ describe( 'Tests: Reactive Form', () => {
 
     it( 'should not trim whitespaces from the end on the INPUT event ', () => {
 
-      inputElement.value = valueWithWhitespaces;
+      componentInstance.example.setValue( valueWithWhitespaces );
 
       inputElement.dispatchEvent( new Event( 'input' ) );
 
@@ -177,23 +218,52 @@ describe( 'Tests: Reactive Form', () => {
 
     } );
 
+    it( 'should keep pristine from the end on the BLUR event w/o changes', () => {
+
+      componentInstance.example.setValue( value );
+
+      expect( componentInstance.example.touched ).toBeFalsy();
+      expect( componentInstance.myGroup.touched ).toBeFalsy();
+      expect( componentInstance.example.pristine ).toBeTruthy();
+      expect( componentInstance.myGroup.pristine ).toBeTruthy();
+
+      inputElement.dispatchEvent( new Event( 'blur' ) );
+
+      fixture.detectChanges();
+
+      expect( inputElement.value ).toBe( value );
+      expect( componentInstance.myGroup.value.example ).toBe( value );
+      expect( componentInstance.myGroup.value.example ).toBe( inputElement.value );
+
+      expect( componentInstance.example.touched ).toBeTruthy();
+      expect( componentInstance.myGroup.touched ).toBeTruthy();
+      expect( componentInstance.example.pristine ).toBeTruthy();
+      expect( componentInstance.myGroup.pristine ).toBeTruthy();
+
+    } );
+
     it( 'should trim whitespaces from the end on the BLUR event', () => {
 
-      inputElement.value = valueWithWhitespaces;
+      componentInstance.example.setValue( valueWithWhitespaces );
 
-      expect( componentInstance.myGroup.get( 'example' ).touched ).toBeFalsy();
+      expect( componentInstance.example.touched ).toBeFalsy();
       expect( componentInstance.myGroup.touched ).toBeFalsy();
+      expect( componentInstance.example.pristine ).toBeTruthy();
+      expect( componentInstance.myGroup.pristine ).toBeTruthy();
 
       inputElement.dispatchEvent( new Event( 'blur' ) );
 
       fixture.detectChanges();
 
       expect( inputElement.value ).toBe( value, 'Input value is not trimmed' );
-      expect( componentInstance.myGroup.value.example ).toBe( value, 'Module is not trimmed' );
+      expect( componentInstance.myGroup.value.example ).toBe( value, 'Model is not trimmed' );
       expect( componentInstance.myGroup.value.example ).toBe( inputElement.value );
 
-      expect( componentInstance.myGroup.get( 'example' ).touched ).toBeTruthy();
+      expect( componentInstance.example.touched ).toBeTruthy();
       expect( componentInstance.myGroup.touched ).toBeTruthy();
+      expect( componentInstance.example.pristine ).toBeFalsy();
+      expect( componentInstance.myGroup.pristine ).toBeFalsy();
+
     } );
 
     it( 'should trim whitespaces from the end of Example2 on the INPUT event', () => {
@@ -201,7 +271,7 @@ describe( 'Tests: Reactive Form', () => {
       // tslint:disable-next-line: max-line-length
       const inputElement2 = fixture.debugElement.query( By.css( 'input[name="example2"]' ) ).nativeElement;
 
-      inputElement2.value = valueWithWhitespaces;
+      componentInstance.example2.setValue( valueWithWhitespaces );
 
       inputElement2.dispatchEvent( new Event( 'input' ) );
 

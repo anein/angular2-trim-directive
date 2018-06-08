@@ -1,8 +1,8 @@
-import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { Component, ViewChild } from '@angular/core';
 import { InputTrimModule } from '../src';
 import { By } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 
 /**
  * Defines the artificial test component
@@ -14,9 +14,13 @@ import { FormsModule } from '@angular/forms';
     <input id="ex-trim" name="example" #exampleModel="ngModel" [(ngModel)]="example" value="" trim/>
     <span *ngIf="!exampleModel.touched">Example Not Touched</span>
     <span *ngIf="exampleModel.touched">Example Touched</span>
+    <i *ngIf="exampleModel.pristine">Example Pristine</i>
+    <i *ngIf="!exampleModel.pristine">Example Dirty</i>
   `
 } )
 class TemplateDrivenFormComponent {
+
+  @ViewChild( 'exampleModel' ) exampleModel: NgModel;
 
   example: string = '';
 
@@ -64,6 +68,16 @@ describe( 'Tests: Template-Driven Form', () => {
 
     } );
 
+    it( 'should write value to the element when the NgModel\'s form control value is set', () => {
+
+      componentInstance.exampleModel.control.setValue( value );
+      expect( inputElement.value ).toBe( value );
+
+      componentInstance.exampleModel.control.setValue( valueWithWhitespaces );
+      expect( inputElement.value ).toBe( valueWithWhitespaces );
+
+    } );
+
   } );
 
   describe( 'Directive without additional options.', () => {
@@ -72,7 +86,10 @@ describe( 'Tests: Template-Driven Form', () => {
 
     it( 'should trim whitespaces from the end on the INPUT event', () => {
 
-      inputElement.value = valueWithWhitespaces;
+      componentInstance.exampleModel.control.setValue( valueWithWhitespaces );
+
+      let el = fixture.debugElement.query( By.css( 'i' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Pristine' );
 
       inputElement.dispatchEvent( new Event( 'input' ) );
 
@@ -82,16 +99,50 @@ describe( 'Tests: Template-Driven Form', () => {
       expect( componentInstance.example ).toBe( value, 'Model is not trimmed' );
       expect( componentInstance.example ).toBe( inputElement.value );
 
+      el = fixture.debugElement.query( By.css( 'i' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Dirty' );
+
     } );
 
-    it( 'should trim whitespaces from the end on the BLUR event', () => {
+    it( 'should keep pristine from the end on the BLUR event w/o changes', () => {
 
-      inputElement.value = valueWithWhitespaces;
+      componentInstance.exampleModel.control.setValue( value );
 
       fixture.detectChanges();
 
       let el = fixture.debugElement.query( By.css( 'span' ) ).nativeElement;
       expect( el.textContent ).toContain( 'Example Not Touched' );
+
+      el = fixture.debugElement.query( By.css( 'i' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Pristine' );
+
+      inputElement.dispatchEvent( new Event( 'blur' ) );
+
+      fixture.detectChanges();
+
+      expect( inputElement.value ).toBe( value );
+      expect( componentInstance.example ).toBe( value );
+      expect( componentInstance.example ).toBe( inputElement.value );
+
+      el = fixture.debugElement.query( By.css( 'span' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Touched' );
+
+      el = fixture.debugElement.query( By.css( 'i' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Pristine' );
+
+    } );
+
+    it( 'should trim whitespaces from the end on the BLUR event', () => {
+
+      componentInstance.exampleModel.control.setValue( valueWithWhitespaces );
+
+      fixture.detectChanges();
+
+      let el = fixture.debugElement.query( By.css( 'span' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Not Touched' );
+
+      el = fixture.debugElement.query( By.css( 'i' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Pristine' );
 
       inputElement.dispatchEvent( new Event( 'blur' ) );
 
@@ -104,11 +155,14 @@ describe( 'Tests: Template-Driven Form', () => {
       el = fixture.debugElement.query( By.css( 'span' ) ).nativeElement;
       expect( el.textContent ).toContain( 'Example Touched' );
 
+      el = fixture.debugElement.query( By.css( 'i' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Dirty' );
+
     } );
 
     it( 'should trim whitespaces of value of `email` input', () => {
 
-      inputElement.value = valueWithWhitespaces;
+      componentInstance.exampleModel.control.setValue( valueWithWhitespaces );
       inputElement.type = 'email';
 
       inputElement.dispatchEvent( new Event( 'input' ) );
@@ -146,6 +200,8 @@ describe( 'Tests: Template-Driven Form', () => {
       <input name="example" #exampleModel="ngModel" [(ngModel)]="example" value="" trim="blur"/>
       <span *ngIf="!exampleModel.touched">Example Not Touched</span>
       <span *ngIf="exampleModel.touched">Example Touched</span>
+      <i *ngIf="exampleModel.pristine">Example Pristine</i>
+      <i *ngIf="!exampleModel.pristine">Example Dirty</i>
     `;
 
     beforeEach( () => {
@@ -155,7 +211,7 @@ describe( 'Tests: Template-Driven Form', () => {
 
     it( 'should not trim whitespaces from the end on the INPUT event ', () => {
 
-      inputElement.value = valueWithWhitespaces;
+      componentInstance.example = inputElement.value = valueWithWhitespaces;
 
       inputElement.dispatchEvent( new Event( 'input' ) );
 
@@ -168,14 +224,45 @@ describe( 'Tests: Template-Driven Form', () => {
 
     } );
 
-    it( 'should trim whitespaces from the end on the BLUR event', () => {
+    it( 'should keep pristine from the end on the BLUR event w/o changes', () => {
 
-      inputElement.value = valueWithWhitespaces;
+      componentInstance.exampleModel.control.setValue( value );
 
       fixture.detectChanges();
 
       let el = fixture.debugElement.query( By.css( 'span' ) ).nativeElement;
       expect( el.textContent ).toContain( 'Example Not Touched' );
+
+      el = fixture.debugElement.query( By.css( 'i' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Pristine' );
+
+      inputElement.dispatchEvent( new Event( 'blur' ) );
+
+      fixture.detectChanges();
+
+      expect( inputElement.value ).toBe( value );
+      expect( componentInstance.example ).toBe( value );
+      expect( componentInstance.example ).toBe( inputElement.value );
+
+      el = fixture.debugElement.query( By.css( 'span' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Touched' );
+
+      el = fixture.debugElement.query( By.css( 'i' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Pristine' );
+
+    } );
+
+    it( 'should trim whitespaces from the end on the BLUR event', () => {
+
+      componentInstance.exampleModel.control.setValue( valueWithWhitespaces );
+
+      fixture.detectChanges();
+
+      let el = fixture.debugElement.query( By.css( 'span' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Not Touched' );
+
+      el = fixture.debugElement.query( By.css( 'i' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Pristine' );
 
       inputElement.dispatchEvent( new Event( 'blur' ) );
 
@@ -187,6 +274,9 @@ describe( 'Tests: Template-Driven Form', () => {
 
       el = fixture.debugElement.query( By.css( 'span' ) ).nativeElement;
       expect( el.textContent ).toContain( 'Example Touched' );
+
+      el = fixture.debugElement.query( By.css( 'i' ) ).nativeElement;
+      expect( el.textContent ).toContain( 'Example Dirty' );
 
     } );
 

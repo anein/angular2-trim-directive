@@ -19,6 +19,14 @@ export class InputTrimDirective extends DefaultValueAccessor {
    */
   private _type: string = 'text';
 
+  /**
+   * Keep the value of input element in a cache.
+   *
+   * @type {string}
+   * @private
+   */
+  private _value: string;
+
   // Source services to modify elements.
   private _sourceRenderer: Renderer2;
   private _sourceElementRef: ElementRef;
@@ -37,6 +45,14 @@ export class InputTrimDirective extends DefaultValueAccessor {
   }
 
   /**
+   * Get the cached value for comparison.
+   *
+   */
+  get value () {
+    return this._value;
+  }
+
+  /**
    * Set a new value to the field and model.
    *
    */
@@ -44,8 +60,15 @@ export class InputTrimDirective extends DefaultValueAccessor {
     // update element
     this.writeValue( val );
 
-    // update model
-    this.onChange( val );
+    if (val !== this.value) {
+
+       // Cache the new value first
+      this._value = val;
+
+      // update model
+      this.onChange( val );
+
+    }
 
   }
 
@@ -54,7 +77,10 @@ export class InputTrimDirective extends DefaultValueAccessor {
    */
   @HostListener( 'blur', ['$event.type', '$event.target.value'] )
   onBlur( event: string, value: string ): void {
-    this.updateValue( event, value );
+    // update value if only changed
+    if (value.trim() !== this.value) {
+      this.updateValue( event, value );
+    }
 
     this.onTouched();
   }
@@ -84,10 +110,14 @@ export class InputTrimDirective extends DefaultValueAccessor {
    * @param {any} value - new value
    */
   public writeValue( value: any ): void {
+    if (!this._value) {
+      this._value = value;
+    }
 
     this._sourceRenderer.setProperty( this._sourceElementRef.nativeElement, 'value', value );
 
-    // a dirty trick (or magic) goes here: it updates the element value if `setProperty` doesn't set it for some reason.
+    // a dirty trick (or magic) goes here:
+    // it updates the element value if `setProperty` doesn't set it for some reason.
     if (this._type !== 'text') {
       this._sourceRenderer.setAttribute( this._sourceElementRef.nativeElement, 'value', value );
     }
