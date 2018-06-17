@@ -48,7 +48,7 @@ export class InputTrimDirective extends DefaultValueAccessor {
    * Get the cached value for comparison.
    *
    */
-  get value () {
+  get value() {
     return this._value;
   }
 
@@ -62,7 +62,7 @@ export class InputTrimDirective extends DefaultValueAccessor {
 
     if (val !== this.value) {
 
-       // Cache the new value first
+      // Cache the new value first
       this._value = val;
 
       // update model
@@ -77,7 +77,9 @@ export class InputTrimDirective extends DefaultValueAccessor {
    */
   @HostListener( 'blur', ['$event.type', '$event.target.value'] )
   onBlur( event: string, value: string ): void {
+
     // update value if only changed
+    // FIX: https://github.com/anein/angular2-trim-directive/issues/17
     if (value.trim() !== this.value) {
       this.updateValue( event, value );
     }
@@ -110,6 +112,7 @@ export class InputTrimDirective extends DefaultValueAccessor {
    * @param {any} value - new value
    */
   public writeValue( value: any ): void {
+
     if (!this._value) {
       this._value = value;
     }
