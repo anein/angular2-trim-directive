@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy, Component, Inject, Input,
   ViewEncapsulation
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component( {
   'selector'     : 'in-app',
@@ -13,9 +13,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 } )
 export class AppComponent {
 
+  trigger: FormControl;
   exampleForm: FormGroup;
 
   constructor( @Inject( FormBuilder ) private fb: FormBuilder ) {
+    this.trigger = this.fb.control('input');
 
     this.exampleForm = this.fb.group( {
 

@@ -4,6 +4,33 @@
   Awesome form
 </h2>
 
+<div class="card border-dark mx-auto">
+  <div class="card-header">
+    Trim values on
+  </div>
+  <div class="card-body text-dark">
+    <form novalidate>
+      <div class="form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" value="input" [formControl]="trigger" id="inputTrigger">
+          <label class="form-check-label" for="inputTrigger">
+            <code class="ml-1 mr-1">input</code>(default)
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" value="blur" [formControl]="trigger" id="blurTrigger">
+          <label class="form-check-label" for="blurTrigger">
+            <code class="ml-1 mr-1">blur</code>
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<hr>
+
 <form novalidate [formGroup]="exampleForm" class="mx-auto">
   <!--text-->
   <div class="form-group">
@@ -13,7 +40,7 @@
         <i>status: {{ exampleForm.controls.text.status}}</i>
       </small>
     </label>
-    <input formControlName="text" placeholder="text" class="form-control" trim="blur"/>
+    <input formControlName="text" placeholder="text" class="form-control" [trim]="trigger.value"/>
   </div>
 
   <!--email-->
@@ -24,7 +51,7 @@
         <i>status: {{ exampleForm.controls.email.status}}</i>
       </small>
     </label>
-    <input formControlName="email" placeholder="email@example.com" type="email" class="form-control" trim/>
+    <input formControlName="email" placeholder="email@example.com" type="email" class="form-control" [trim]="trigger.value"/>
   </div>
 
   <!-- number -->
@@ -35,7 +62,7 @@
         <i>status: {{ exampleForm.controls.number.status}}</i>
       </small>
     </label>
-    <input formControlName="number" placeholder="0" type="number" class="form-control" trim="blur"/>
+    <input formControlName="number" placeholder="0" type="number" class="form-control" [trim]="trigger.value"/>
   </div>
 
   <!-- url -->
@@ -46,7 +73,7 @@
         <i>status: {{ exampleForm.controls.url.status}}</i>
       </small>
     </label>
-    <input formControlName="url" placeholder="www.github.com" type="url" class="form-control" trim="blur"/>
+    <input formControlName="url" placeholder="www.github.com" type="url" class="form-control" [trim]="trigger.value"/>
   </div>
 
   <!--textarea-->
@@ -57,7 +84,7 @@
         <i>status: {{ exampleForm.controls.textarea.status}}</i>
       </small>
     </label>
-    <textarea formControlName="textarea" placeholder="textarea" class="form-control" trim="blur"></textarea>
+    <textarea formControlName="textarea" placeholder="textarea" class="form-control" [trim]="trigger.value"></textarea>
   </div>
   <hr/>
   <pre>
