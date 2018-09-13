@@ -34,14 +34,14 @@ export class InputTrimDirective extends DefaultValueAccessor {
   // Get a value of the trim attribute if it was set.
   @Input() trim: string;
 
-  // Get the element type
   @Input()
-  get type(): string {
-    return this._type;
-  }
-
   set type( value: string ) {
     this._type = value || 'text';
+  }
+
+  // Get the element type
+  get type(): string {
+    return this._type;
   }
 
   /**
