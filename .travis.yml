@@ -3,31 +3,27 @@ language: node_js
 notifications:
   email: false
 node_js:
-  - '6'
-
+- '6'
 before_script:
-  - npm prune
-
+- npm prune
 install:
-  - npm install
-
+- npm install
 cache:
   bundler: true
   directories:
-    - node_modules
+  - node_modules
 script:
-  - npm run test
-  - npm run build
+- npm run test
+- npm run build
 branches:
   only:
-    - master
-    
+  - master
 before_deploy:
-  - npm run build
+- npm run build
 deploy:
   provider: npm
   email: al.eine@protonmail.com
   skip_cleanup: true
   local-dir: dist
   api_key:
-    secure: k00c4Lh9aU6qJYaEzAJIlHSDF622Ln+Exi6fkI0NHCniMkkyvv34WtbCJr6BfxKzjC5fcOtOtbX31cnW/zwupsy8GcESC/DoZC5bww+u3S6DBfY2u4ZvCZs6RRaBSPKmm8feWRHp8NopZHmLrn4Uaf9QjgHPV8lGWaqmHAfD5e/RNsH+u4Qfr8kujraOQszGv7u7r2cjf7Nv8tuySBzHmcfCCH+2ycRQ/rEgJmGijPytTzl0+GVe1+Bh2MLJk+3hPMP2C2ln8VvmM+eI4yx7sYYdWvkeLy/fXbexvVE1vKeCrR9FIKD89YKgQExkP/4gJsgMA17TXYbmIw1pCKQQ74GcnBi5ej28nQC1hcbOZsMPi1CaGpDeywS70FmfY3PaSD48u7Ns9hNfKN8WuisQRMwMdrHmEqQjai3uhC76Z3TQ9k74DY5dJU1QpIm3iSBv57/Slly9JJh0rcuC38uj2REbMSdyPtmTMG3wBHzy5EhdnlUgc+qfAHzUAPQerujXt0xfZjt+64YT02FoD6luyezp6IC6ERyoBecfPuuPwY7cyOC778qa9yZDtoEveqDApzOM8x6T6JA8EoJ1FqcX4M/i54IeBBdidPAkKOxH0bAuB1kxhZjzAkoNvm9Ssq/9UHJ+3jM6f9VhYpXh6m+ynoNWM2IPErg/4TXS32x3Arw=
+    secure: NcvcYFJxWwOBZeaCCKsCK/bDZ/wacLXqUsUg0ki2HDmRa2Gz4UOUNa/LG5+4Ie+Lqyav7fV0suWq0zSAbqdY6iUcPnKRD3jK3oVv/eOSyk+qcQ7EB2BwylU4wcIV4vJxp3C/vqZEB/JRGBtZ4Ety96Ty0lMf/3JDSg6j4GKfJJxQHcgUidRFCSxBRKbGmo4rJX79za9sj/hrrXI+7u2wXAIAoKOVI3YdY8U0H3LqF0oySE4CPfwUSBJFPjObRLiNE1HC93PdhTlEUKX25IHormwoF3LPTp3TAbg727enrgmmKb7KIJT+a+hRgioQf3gujHqpCY/i0qpTwuBlEzwfoFq419T75W3t4lrXv4NnqrbuJ99rMqA+QO7xev3M3+/PcOySOWTsHIlLl4StrOfRZxIcZSwRN52Y20rZstlQjsDVs4REh5rSGH7w8td+DcSYfQnjRYMdIRXLBLol19Kd0b50iR0CHAijRy9dzzCHON+Pt1khWhT0ZIA5/SlCJC7uZChT40LhQhnjMga0uvy9e87AQwE4v0JbH3+QyaUQmX1WskQGzGJ5rjMNMCbQXVqcUkQ2WwkynR3xQl4epaW2fQGvz/y0gFTcdUnEDxYoLzShb57Wjq4MGmQ0rG5ABfgycdtuUE4sSiBR2DCEaPeayj4gvzEhz2bJZuLrMuLWpuQ=
