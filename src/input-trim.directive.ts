@@ -1,5 +1,10 @@
 import {
-  Directive, ElementRef, HostListener, Inject, Input, Optional,
+  Directive,
+  ElementRef,
+  HostListener,
+  Inject,
+  Input,
+  Optional,
   Renderer2
 } from '@angular/core';
 import { COMPOSITION_BUFFER_MODE, DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -57,18 +62,18 @@ export class InputTrimDirective extends DefaultValueAccessor {
    *
    */
   set value( val: any ) {
+
+    // to prevent setting `undefined` if the model is undefined or null
+    //
+    // FIX: https://github.com/anein/angular2-trim-directive/issues/18
+    //
+    val = val || '';
+
     // update element
     this.writeValue( val );
 
-    if (val !== this.value) {
-
-      // Cache the new value first
-      this._value = val;
-
-      // update model
-      this.onChange( val );
-
-    }
+    // update model
+    this.onChange( val );
 
   }
 
@@ -107,20 +112,19 @@ export class InputTrimDirective extends DefaultValueAccessor {
   /**
    * Writes a new value to the element based on the type of input element.
    *
-   * FIX: https://github.com/anein/angular2-trim-directive/issues/9
-   *
    * @param {any} value - new value
    */
   public writeValue( value: any ): void {
 
-    if (!this._value) {
-      this._value = value;
-    }
+    this._value = value;
 
     this._sourceRenderer.setProperty( this._sourceElementRef.nativeElement, 'value', value );
 
     // a dirty trick (or magic) goes here:
     // it updates the element value if `setProperty` doesn't set it for some reason.
+    //
+    // FIX: https://github.com/anein/angular2-trim-directive/issues/9
+    //
     if (this._type !== 'text') {
       this._sourceRenderer.setAttribute( this._sourceElementRef.nativeElement, 'value', value );
     }
