@@ -31,35 +31,58 @@
 
 <hr>
 
-<form novalidate [formGroup]="exampleForm" class="mx-auto">
+<form novalidate [formGroup]="exampleForm" class="mx-auto" (ngSubmit)="onSubmit()">
   <!--text-->
   <div class="form-group">
     <label>
       Text.
-      <small>
-        <i>status: {{ exampleForm.controls.text.status}}</i>
+      <small *ngFor="let key of getKeys(exampleFormInfo['text'])">
+        <i><b>{{key | titlecase}}</b>: {{exampleFormInfo['text'][key]}}; </i>
       </small>
     </label>
     <input formControlName="text" placeholder="text" class="form-control" [trim]="trigger.value"/>
+  </div>
+
+  <!--undefined-->
+  <div class="form-group">
+    <label>
+      Model is `undefined`.
+      <small *ngFor="let key of getKeys(exampleFormInfo['text_undefined'])">
+        <i><b>{{key | titlecase}}</b>: {{exampleFormInfo['text_undefined'][key]}}; </i>
+      </small>
+    </label>
+    <input formControlName="text_undefined" placeholder="text" class="form-control" [trim]="trigger.value"/>
+  </div>
+
+  <!--autofill-->
+  <div class="form-group">
+    <label>
+      Autofill text
+      <small *ngFor="let key of getKeys(exampleFormInfo['text_autofill'])">
+        <i><b>{{key | titlecase}}</b>: {{exampleFormInfo['text_autofill'][key]}}; </i>
+      </small>
+    </label>
+    <input name="name" formControlName="text_autofill" placeholder="text" class="form-control" [trim]="trigger.value" autocomplete="on"/>
   </div>
 
   <!--email-->
   <div class="form-group">
     <label>
       Email.
-      <small>
-        <i>status: {{ exampleForm.controls.email.status}}</i>
+      <small *ngFor="let key of getKeys(exampleFormInfo['email'])">
+        <i><b>{{key | titlecase}}</b>: {{exampleFormInfo['email'][key]}}; </i>
       </small>
     </label>
-    <input formControlName="email" placeholder="email@example.com" type="email" class="form-control" [trim]="trigger.value"/>
+    <input formControlName="email" placeholder="email@example.com" type="email" class="form-control"
+           [trim]="trigger.value" autocomplete="true"/>
   </div>
 
   <!-- number -->
   <div class="form-group">
     <label>
       Number
-      <small>
-        <i>status: {{ exampleForm.controls.number.status}}</i>
+      <small *ngFor="let key of getKeys(exampleFormInfo['number'])">
+        <i><b>{{key | titlecase}}</b>: {{exampleFormInfo['number'][key]}}; </i>
       </small>
     </label>
     <input formControlName="number" placeholder="0" type="number" class="form-control" [trim]="trigger.value"/>
@@ -69,23 +92,29 @@
   <div class="form-group">
     <label>
       URL
-      <small>
-        <i>status: {{ exampleForm.controls.url.status}}</i>
+      <small *ngFor="let key of getKeys(exampleFormInfo['url'])">
+        <i><b>{{key | titlecase}}</b>: {{exampleFormInfo['url'][key]}}; </i>
       </small>
     </label>
-    <input formControlName="url" placeholder="www.github.com" type="url" class="form-control" [trim]="trigger.value"/>
+    <input formControlName="url" placeholder="https://www.github.com" type="url" class="form-control"
+           [trim]="trigger.value"/>
   </div>
 
   <!--textarea-->
   <div class="form-group">
     <label>
       Textarea.(maxLength=10)
-      <small>
-        <i>status: {{ exampleForm.controls.textarea.status}}</i>
+      <small *ngFor="let key of getKeys(exampleFormInfo['textarea'])">
+        <i><b>{{key | titlecase}}</b>: {{exampleFormInfo['textarea'][key]}}; </i>
       </small>
     </label>
     <textarea formControlName="textarea" placeholder="textarea" class="form-control" [trim]="trigger.value"></textarea>
   </div>
+
+  <div class="right">
+    <button>Submit</button>
+  </div>
+
   <hr/>
   <pre>
     <p> Form values {{ exampleForm.value | json }}</p>
