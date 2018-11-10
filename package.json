@@ -58,5 +58,8 @@
     "webpack"                          : "^3.10.0",
     "zone.js"                          : "^0.8.19"
   },
-  "dependencies"   : {}
+  "dependencies"   : {
+    "travis"    : "^0.1.1",
+    "travis-cli": "^1.0.9"
+  }
 }
