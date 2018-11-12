@@ -78,6 +78,30 @@ describe( 'Tests: Template-Driven Form', () => {
 
     } );
 
+    it( `should return an empty string if value is undefined`, () => {
+
+      componentInstance.exampleModel.control.setValue( undefined );
+
+      inputElement.dispatchEvent( new Event( 'input' ) );
+
+      fixture.detectChanges();
+
+      expect( inputElement.value ).toBe( "" );
+
+    } );
+
+    it( `should return an empty string if value is null `, () => {
+
+      componentInstance.exampleModel.control.setValue( null );
+
+      inputElement.dispatchEvent( new Event( 'input' ) );
+
+      fixture.detectChanges();
+
+      expect( inputElement.value ).toBe( "" );
+
+    } );
+
   } );
 
   describe( 'Directive without additional options.', () => {
