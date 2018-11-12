@@ -21,13 +21,13 @@ export class AppComponent {
 
     this.exampleForm = this.fb.group( {
 
-      'text'          : ['', Validators.required],
-      'text_undefined': [null, Validators.required],
-      'text_autofill' : [undefined, Validators.required],
-      'email'         : ['', [Validators.required, Validators.email]],
-      'number'        : ['', [Validators.required]],
-      'url'           : ['', [Validators.required]],
-      'textarea'      : ['', [Validators.required, Validators.maxLength( 10 )]]
+      'text'          : [undefined],
+      'text_undefined': [null],
+      'text_autofill' : [undefined],
+      'email'         : ['', [Validators.email]],
+      'number'        : ['', []],
+      'url'           : ['', []],
+      'textarea'      : ['', [Validators.maxLength( 10 )]]
 
     } );
 
