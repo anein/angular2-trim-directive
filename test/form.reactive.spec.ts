@@ -97,8 +97,6 @@ describe( 'Tests: Reactive Form', () => {
 
       inputElement.value = componentInstance.myGroup.value.undefinedState;
 
-      console.log( componentInstance.myGroup.value.undefinedState );
-
       expect( typeof inputElement.value ).toBe( "string" );
 
       inputElement.dispatchEvent( new Event( 'input' ) );
@@ -155,8 +153,7 @@ describe( 'Tests: Reactive Form', () => {
 
       expect( componentInstance.myGroup.controls.example.touched ).toBeTruthy();
       expect( componentInstance.myGroup.touched ).toBeTruthy();
-      expect( componentInstance.myGroup.controls.example.pristine ).toBeTruthy();
-      expect( componentInstance.myGroup.pristine ).toBeTruthy();
+      expect( componentInstance.myGroup.controls.example.dirty ).toBeFalsy( "The same values shouldn't be marked as dirty" );
 
     } );
 
@@ -206,8 +203,8 @@ describe( 'Tests: Reactive Form', () => {
       fixture.detectChanges();
       tick();
 
-      // tslint:disable-next-line: max-line-length
-      expect( componentInstance.myGroup.value.example ).toBe( inputElement.value, 'Value of model and input is the same' );
+      expect( componentInstance.myGroup.value.example )
+        .toBe( inputElement.value, 'Value of model and input is the same' );
 
       inputElement.dispatchEvent( new Event( 'input' ) );
 
@@ -298,8 +295,8 @@ describe( 'Tests: Reactive Form', () => {
 
     it( 'should trim whitespaces from the end of Example2 on the INPUT event', () => {
 
-      // tslint:disable-next-line: max-line-length
-      const inputElement2 = fixture.debugElement.query( By.css( 'input[name="example2"]' ) ).nativeElement;
+      const inputElement2 = fixture.debugElement
+        .query( By.css( 'input[name="example2"]' ) ).nativeElement;
 
       componentInstance.myGroup.controls.example2.setValue( valueWithWhitespaces );
 
