@@ -1,6 +1,7 @@
 {
   "rulesDirectory": [
-    "node_modules/codelyzer"
+    "node_modules/codelyzer",
+    "tslint-config-prettier"
   ],
   "rules"         : {
     "member-access"                   : false,
@@ -15,23 +16,6 @@
     "no-internal-module"              : true,
     "no-var-requires"                 : false,
     "typedef"                         : false,
-    "typedef-whitespace"              : [
-      true,
-      {
-        "call-signature"      : "nospace",
-        "index-signature"     : "nospace",
-        "parameter"           : "nospace",
-        "property-declaration": "nospace",
-        "variable-declaration": "nospace"
-      },
-      {
-        "call-signature"      : "space",
-        "index-signature"     : "space",
-        "parameter"           : "space",
-        "property-declaration": "space",
-        "variable-declaration": "space"
-      }
-    ],
     "ban"                             : false,
     "curly"                           : false,
     "forin"                           : true,
@@ -65,25 +49,8 @@
       true,
       "allow-null-check"
     ],
-    "eofline"                         : true,
-    "indent"                          : [
-      true,
-      "spaces"
-    ],
-    "max-line-length"                 : [
-      true,
-      100
-    ],
     "no-require-imports"              : false,
-    "no-trailing-whitespace"          : true,
     "object-literal-sort-keys"        : false,
-    "trailing-comma"                  : [
-      true,
-      {
-        "multiline" : false,
-        "singleline": "never"
-      }
-    ],
     "align"                           : false,
     "class-name"                      : true,
     "comment-format"                  : [
@@ -93,36 +60,11 @@
     "interface-name"                  : false,
     "jsdoc-format"                    : true,
     "no-consecutive-blank-lines"      : false,
-    "one-line"                        : [
-      true,
-      "check-open-brace",
-      "check-catch",
-      "check-else",
-      "check-finally",
-      "check-whitespace"
-    ],
-    "quotemark"                       : [
-      true,
-      "single",
-      "avoid-escape"
-    ],
-    "semicolon"                       : [
-      true,
-      "always"
-    ],
     "variable-name"                   : [
       true,
       "check-format",
       "allow-leading-underscore",
       "ban-keywords"
-    ],
-    "whitespace"                      : [
-      true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type"
     ],
     "directive-selector"              : [
       true,
@@ -145,15 +87,10 @@
     "no-forward-ref"                  : false,
     "use-life-cycle-interface"        : true,
     "use-pipe-transform-interface"    : true,
-    "import-destructuring-spacing"    : true,
     "pipe-naming"                     : [
       true,
       "camelCase"
     ],
-    "directive-class-suffix"          : true,
-    "no-access-missing-member"        : true,
-    "templates-use-public"            : true,
-    "invoke-injectable"               : true,
-    "template-to-ng-template"         : true
+    "directive-class-suffix"          : true
   }
 }
