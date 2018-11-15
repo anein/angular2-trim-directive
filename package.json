@@ -35,7 +35,7 @@
   },
   "husky"          : {
     "hooks": {
-      "pre-push": "yarn run lint && yarn run test && yarn run build"
+      "pre-commit": "yarn run lint && yarn run test && yarn run build"
     }
   },
   "devDependencies": {
