@@ -16,23 +16,29 @@ export class AppComponent {
 
   exampleFormInfo = {};
 
+  undefined_Model: string | undefined;
+
   constructor( @Inject( FormBuilder ) private fb: FormBuilder ) {
     this.trigger = this.fb.control( 'input' );
 
     this.exampleForm = this.fb.group( {
 
-      'text'          : ['', Validators.required],
-      'text_undefined': [null, Validators.required],
-      'text_autofill' : [undefined, Validators.required],
-      'email'         : ['', [Validators.required, Validators.email]],
-      'number'        : ['', [Validators.required]],
-      'url'           : ['', [Validators.required]],
-      'textarea'      : ['', [Validators.required, Validators.maxLength( 10 )]]
+      'text'          : ["Booobbb    "],
+      'text_undefined': [undefined],
+      'text_autofill' : [undefined],
+      'email'         : ['', [Validators.email]],
+      'number'        : ['', []],
+      'url'           : ['', []],
+      'textarea'      : ['', [Validators.maxLength( 10 )]]
 
     } );
 
     this.updateStates();
 
+  }
+
+  ngOnInit() {
+    this.exampleForm.controls.text_undefined.setValue( undefined );
   }
 
   /**
@@ -62,7 +68,13 @@ export class AppComponent {
 
   }
 
+  onTemplateFormSubmit(): void {
+    console.log( this.undefined_Model );
+  }
+
   onSubmit(): void {
+    console.log( this.exampleForm.value );
+
   }
 
 }

@@ -31,6 +31,49 @@
 
 <hr>
 
+<h3>
+  Template Driven Form
+</h3>
+<hr/>
+
+<form #form="ngForm" class="mx-auto" novalidate (ngSubmit)="onTemplateFormSubmit()">
+
+  <!-- -->
+
+  <div class="form-group">
+    <label>
+      Isolated undefined field.
+      <small>
+        <i><b>Dirty</b>: {{undefinedModel.dirty }} </i>
+        <i><b>Touched</b>: {{undefinedModel.touched }} </i>
+      </small>
+
+      <small>
+      </small>
+    </label>
+    <input class="form-control"
+           #undefinedModel="ngModel"
+           [(ngModel)]="undefined_Model"
+           name="undefinedModel"
+           placeholder="text" [trim]="trigger.value"/>
+  </div>
+  <div class="right">
+    <button class="btn btn-primary btn-lg">Submit</button>
+  </div>
+  <!-- -->
+  <hr/>
+  <pre>
+    <p> <b>Template Driven values</b> {{ form.value | json }}</p>
+    <p> <b>Form status</b> {{ form.status | json }}</p>
+  </pre>
+
+</form>
+<hr/>
+<h3>
+  Reactive Form
+</h3>
+<hr/>
+
 <form novalidate [formGroup]="exampleForm" class="mx-auto" (ngSubmit)="onSubmit()">
   <!--text-->
   <div class="form-group">
@@ -46,7 +89,7 @@
   <!--undefined-->
   <div class="form-group">
     <label>
-      Model is `undefined`.
+      Field is `undefined` on init.
       <small *ngFor="let key of getKeys(exampleFormInfo['text_undefined'])">
         <i><b>{{key | titlecase}}</b>: {{exampleFormInfo['text_undefined'][key]}}; </i>
       </small>
@@ -62,7 +105,8 @@
         <i><b>{{key | titlecase}}</b>: {{exampleFormInfo['text_autofill'][key]}}; </i>
       </small>
     </label>
-    <input name="name" formControlName="text_autofill" placeholder="text" class="form-control" [trim]="trigger.value" autocomplete="on"/>
+    <input name="name" formControlName="text_autofill" placeholder="text" class="form-control" [trim]="trigger.value"
+           autocomplete="on"/>
   </div>
 
   <!--email-->
@@ -112,13 +156,13 @@
   </div>
 
   <div class="right">
-    <button>Submit</button>
+    <button class="btn btn-primary btn-lg">Submit</button>
   </div>
 
   <hr/>
   <pre>
-    <p> Form values {{ exampleForm.value | json }}</p>
-    <p> Form status {{ exampleForm.status | json }}</p>
+    <p> <b>Reactive Form values</b> {{ exampleForm.value | json }}</p>
+    <p> <b>Form status</b> {{ exampleForm.status | json }}</p>
   </pre>
 
 </form>

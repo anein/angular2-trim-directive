@@ -1,6 +1,6 @@
 {
   "name"           : "ng2-trim-directive",
-  "version"        : "2.1.7",
+  "version"        : "2.2.0",
   "author"         : "Alexander Ein (@alexanderein)",
   "license"        : "MIT",
   "repository"     : {
@@ -25,11 +25,18 @@
     "LICENSE"
   ],
   "scripts"        : {
-    "eg:build"  : "ng build --app 0",
-    "eg:serve"  : "ng serve --app 0",
-    "build"     : "ngc --project ./tsconfig.json",
-    "test"      : "ng test",
-    "prepublish": "npm run build"
+    "eg:build"    : "ng build --app 0",
+    "eg:serve"    : "ng serve --app 0",
+    "build"       : "ngc --project ./tsconfig.json",
+    "test"        : "ng test",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json",
+    "lint"        : "tslint -c ./tslint.json -p ./tsconfig.json",
+    "prepublish"  : "npm run build"
+  },
+  "husky"          : {
+    "hooks": {
+      "pre-commit": "yarn run lint && yarn run test && yarn run build"
+    }
   },
   "devDependencies": {
     "@angular/cli"                     : "^1.6.3",
@@ -44,6 +51,7 @@
     "@types/jasmine"                   : "^2.8.3",
     "@types/node"                      : "^8.5.7",
     "codelyzer"                        : "^4.0.2",
+    "husky"                            : "^1.1.4",
     "jasmine-core"                     : "^2.8.0",
     "karma"                            : "^2.0.3",
     "karma-chrome-launcher"            : "^2.2.0",
@@ -52,8 +60,12 @@
     "karma-jasmine"                    : "^1.1.1",
     "karma-jasmine-html-reporter"      : "^0.2.2",
     "karma-phantomjs-launcher"         : "^1.0.4",
+    "prettier"                         : "^1.15.2",
     "rxjs"                             : "^5.5.6",
+    "travis"                           : "^0.1.1",
+    "travis-cli"                       : "^1.0.9",
     "tslint"                           : "^5.8.0",
+    "tslint-config-prettier"           : "^1.16.0",
     "typescript"                       : "^2.6.2",
     "webpack"                          : "^3.10.0",
     "zone.js"                          : "^0.8.19"
