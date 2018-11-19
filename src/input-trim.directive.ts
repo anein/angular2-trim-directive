@@ -7,14 +7,18 @@ import {
   Optional,
   Renderer2
 } from '@angular/core';
-import { COMPOSITION_BUFFER_MODE, DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  COMPOSITION_BUFFER_MODE,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR
+} from '@angular/forms';
 
 @Directive( {
   selector : 'input[trim], textarea[trim]',
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: InputTrimDirective, multi: true }]
 
 } )
-export class InputTrimDirective extends DefaultValueAccessor {
+export class InputTrimDirective implements ControlValueAccessor {
 
   /**
    * Keep the type of input element in a cache.
@@ -100,14 +104,20 @@ export class InputTrimDirective extends DefaultValueAccessor {
     this.updateValue( event, value );
   }
 
+  onChange = (_: any) => {};
+
+  onTouched = () => {};
+
   constructor( @Inject( Renderer2 ) renderer: Renderer2,
                @Inject( ElementRef ) elementRef: ElementRef,
                @Optional() @Inject( COMPOSITION_BUFFER_MODE ) compositionMode: boolean ) {
-    super( renderer, elementRef, compositionMode );
-
     this._sourceRenderer = renderer;
     this._sourceElementRef = elementRef;
   }
+
+  registerOnChange(fn: (_: any) => void): void { this.onChange = fn; }
+
+  registerOnTouched(fn: () => void): void { this.onTouched = fn; }
 
   /**
    * Writes a new value to the element based on the type of input element.
