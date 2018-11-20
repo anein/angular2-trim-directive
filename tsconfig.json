@@ -24,6 +24,6 @@
     "**/*.spec.ts"
   ],
   "angularCompilerOptions": {
-    "strictMetadataEmit" : true
+    "strictMetadataEmit": true
   }
 }
