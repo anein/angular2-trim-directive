@@ -1,29 +1,29 @@
 {
-  "compilerOptions": {
-    "declaration": true,
+  "compilerOptions"       : {
+    "declaration"           : true,
     "experimentalDecorators": true,
-    "module": "commonjs",
-    "noImplicitAny": false,
-    "rootDir": "src",
-    "outDir": "dist",
-    "sourceMap": false,
-    "target": "es5",
-    "pretty": true,
-    "removeComments": true,
+    "module"                : "commonjs",
+    "noImplicitAny"         : false,
+    "rootDir"               : "src",
+    "outDir"                : "dist",
+    "sourceMap"             : false,
+    "target"                : "es5",
+    "pretty"                : true,
+    "removeComments"        : true,
     "lib": [
       "es2017",
       "dom"
     ],
     "baseUrl": "./"
   },
-  "include": [
+  "include"               : [
     "src/**/*"
   ],
-  "exclude": [
+  "exclude"               : [
     "node_modules",
     "**/*.spec.ts"
   ],
   "angularCompilerOptions": {
-    "strictMetadataEmit": true
+    "strictMetadataEmit"  : true
   }
 }

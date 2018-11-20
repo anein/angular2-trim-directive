@@ -33,7 +33,7 @@
     "lint"        : "tslint -c ./tslint.json -p ./tsconfig.json",
     "prepublish"  : "npm run build"
   },
-  "husky": {
+  "husky"         : {
     "hooks": {
       "pre-commit": "yarn run lint && yarn run test && yarn run build"
     }
