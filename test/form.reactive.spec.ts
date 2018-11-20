@@ -105,6 +105,19 @@ describe( 'Tests: Reactive Form', () => {
 
     } );
 
+    it( 'should reflect the disabled state', () => {
+
+      componentInstance.myGroup.get('example').disable();
+
+      expect( inputElement.disabled ).toBe( true );
+
+      componentInstance.myGroup.get('example').enable();
+
+      expect( inputElement.disabled ).toBe( false );
+
+    } );
+
+
   } );
 
   describe( 'Directive without additional options.', () => {
