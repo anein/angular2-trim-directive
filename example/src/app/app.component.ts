@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
     this.exampleForm = this.fb.group( {
       text          : ["Booobbb    "],
       text_undefined: [undefined],
+      text_disabled : { value: "I'm disabled", disabled: true },
       text_autofill : [undefined],
       email         : ["", [Validators.email]],
       number        : ["", []],
