@@ -1,66 +1,66 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
+  "$schema"       : "./node_modules/@angular/cli/lib/config/schema.json",
+  "version"       : 1,
   "newProjectRoot": "projects",
-  "projects": {
-    "ng2-trim-directive": {
-      "root": "example",
-      "sourceRoot": "./example/src",
+  "projects"      : {
+    "ng2-trim-directive"    : {
+      "root"       : "example",
+      "sourceRoot" : "./example/src",
       "projectType": "application",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
+      "architect"  : {
+        "build"       : {
+          "builder"       : "@angular-devkit/build-angular:browser",
+          "options"       : {
             "outputPath": "./example/dist",
-            "index": "./example/src/index.html",
-            "main": "./example/src/main.ts",
-            "tsConfig": "./example/src/tsconfig.json",
-            "sourceMap": false,
-            "polyfills": "./example/src/polyfills.ts",
-            "assets": [],
-            "styles": [],
-            "scripts": []
+            "index"     : "./example/src/index.html",
+            "main"      : "./example/src/main.ts",
+            "tsConfig"  : "./example/src/tsconfig.json",
+            "sourceMap" : false,
+            "polyfills" : "./example/src/polyfills.ts",
+            "assets"    : [],
+            "styles"    : [],
+            "scripts"   : []
           },
           "configurations": {
-            "dev": {
+            "dev"       : {
               "fileReplacements": [
                 {
                   "replace": "./example/src/../../config/environments/environment.ts",
-                  "with": "./example/src/../config/environments/environment.ts"
+                  "with"   : "./example/src/../config/environments/environment.ts"
                 }
               ]
             },
-            "prod": {
+            "prod"      : {
               "fileReplacements": [
                 {
                   "replace": "./example/src/../../config/environments/environment.ts",
-                  "with": "./example/src/../config/environments/environment.prod.ts"
+                  "with"   : "./example/src/../config/environments/environment.prod.ts"
                 }
               ]
             },
             "production": {
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
+              "optimization"   : true,
+              "outputHashing"  : "all",
+              "sourceMap"      : false,
+              "extractCss"     : true,
+              "namedChunks"    : false,
+              "aot"            : true,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
+              "vendorChunk"    : false,
+              "buildOptimizer" : true
             }
           }
         },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
+        "serve"       : {
+          "builder"       : "@angular-devkit/build-angular:dev-server",
+          "options"       : {
             "browserTarget": "ng2-trim-directive:build"
           },
           "configurations": {
-            "dev": {
+            "dev"       : {
               "browserTarget": "ng2-trim-directive:build:dev"
             },
-            "prod": {
+            "prod"      : {
               "browserTarget": "ng2-trim-directive:build:prod"
             },
             "production": {
@@ -74,37 +74,37 @@
             "browserTarget": "ng2-trim-directive:build"
           }
         },
-        "test": {
+        "test"        : {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "./example/src/../../test/tests.ts",
+            "main"       : "./example/src/../../test/tests.ts",
             "karmaConfig": "./karma.conf.js",
-            "polyfills": "./example/src/polyfills.ts",
-            "tsConfig": "./example/src/../../tsconfig.spec.json",
-            "scripts": [],
-            "styles": [],
-            "assets": []
+            "polyfills"  : "./example/src/polyfills.ts",
+            "tsConfig"   : "./example/src/../../tsconfig.spec.json",
+            "scripts"    : [],
+            "styles"     : [],
+            "assets"     : []
           }
         },
-        "lint": {
+        "lint"        : {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
               "./tslint.json"
             ],
-            "exclude": []
+            "exclude" : []
           }
         }
       }
     },
     "ng2-trim-directive-e2e": {
-      "root": "example/e2e",
-      "sourceRoot": "example/e2e",
+      "root"       : "example/e2e",
+      "sourceRoot" : "example/e2e",
       "projectType": "application"
     }
   },
   "defaultProject": "ng2-trim-directive",
-  "schematics": {
+  "schematics"    : {
     "@schematics/angular:component": {
       "styleext": "sass"
     },

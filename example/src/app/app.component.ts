@@ -1,5 +1,11 @@
-import { ChangeDetectionStrategy, Component, Inject, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component( {
   'selector'     : 'in-app',
@@ -8,15 +14,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   encapsulation  : ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 } )
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   trigger: FormControl;
 
   exampleForm: FormGroup;
 
   exampleFormInfo = {};
-
-  undefined_Model: string | undefined;
 
   constructor( @Inject( FormBuilder ) private fb: FormBuilder ) {
     this.trigger = this.fb.control( 'input' );
@@ -38,6 +42,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    console.log();
     this.exampleForm.controls.text_undefined.setValue( undefined );
   }
 
@@ -59,6 +64,7 @@ export class AppComponent {
     const fields = ['status', 'dirty', 'touched'];
 
     for (let item in this.exampleForm.controls) {
+      if (!this.exampleForm.controls[item]) continue;
       this.exampleFormInfo[item] = {};
       for (let field of fields) {
         this.exampleFormInfo[item][field] = this.exampleForm.controls[item][field];
@@ -68,12 +74,12 @@ export class AppComponent {
 
   }
 
-  onTemplateFormSubmit(): void {
-    console.log( this.undefined_Model );
+  onTemplateFormSubmit( form: NgForm ): void {
+    console.dir( form.control.getRawValue() );
   }
 
   onSubmit(): void {
-    console.log( this.exampleForm.value );
+    console.log( this.exampleForm.getRawValue() );
 
   }
 

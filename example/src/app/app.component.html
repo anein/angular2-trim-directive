@@ -36,27 +36,46 @@
 </h3>
 <hr/>
 
-<form #form="ngForm" class="mx-auto" novalidate (ngSubmit)="onTemplateFormSubmit()">
+<form #form="ngForm" class="mx-auto" novalidate (ngSubmit)="onTemplateFormSubmit(form)">
 
   <!-- -->
-
   <div class="form-group">
     <label>
       Isolated undefined field.
       <small>
+        <i><b>Status</b>: {{undefinedModel.status }} </i>
         <i><b>Dirty</b>: {{undefinedModel.dirty }} </i>
         <i><b>Touched</b>: {{undefinedModel.touched }} </i>
       </small>
 
-      <small>
-      </small>
     </label>
     <input class="form-control"
            #undefinedModel="ngModel"
-           [(ngModel)]="undefined_Model"
            name="undefinedModel"
+           ngModel
            placeholder="text" [trim]="trigger.value"/>
   </div>
+
+  <!-- -->
+  <div class="form-group">
+    <label>
+      Disabled field.
+
+      <small>
+        <i><b>Status</b>: {{disabledModel.status }} </i>
+        <i><b>Dirty</b>: {{disabledModel.dirty }} </i>
+        <i><b>Touched</b>: {{disabledModel.touched }} </i>
+      </small>
+
+    </label>
+    <input class="form-control"
+           #disabledModel="ngModel"
+           ngModel
+           name="disabledModel"
+           [disabled]="true"
+           placeholder="I'm disabled" [trim]="trigger.value"/>
+  </div>
+
   <div class="right">
     <button class="btn btn-primary btn-lg">Submit</button>
   </div>
@@ -95,6 +114,16 @@
       </small>
     </label>
     <input formControlName="text_undefined" placeholder="text" class="form-control" [trim]="trigger.value"/>
+  </div>
+
+  <div class="form-group">
+    <label>
+      Field is `disabled` on init.
+      <small *ngFor="let key of getKeys(exampleFormInfo['text_disabled'])">
+        <i><b>{{key | titlecase}}</b>: {{exampleFormInfo['text_disabled'][key]}}; </i>
+      </small>
+    </label>
+    <input formControlName="text_disabled" placeholder="text" class="form-control" [trim]="trigger.value"/>
   </div>
 
   <!--autofill-->
