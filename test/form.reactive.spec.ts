@@ -117,7 +117,6 @@ describe( 'Tests: Reactive Form', () => {
 
     } );
 
-
   } );
 
   describe( 'Directive without additional options.', () => {
