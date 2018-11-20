@@ -5,17 +5,17 @@
   },
   "apps"    : [
     {
-      "root"             : "./example",
-      "outDir"           : "dist",
-      "index"            : "src/index.html",
-      "main"             : "src/main.ts",
-      "polyfills"        : "src/polyfills.ts",
-      "tsconfig"         : "src/tsconfig.json",
+      "root"             : "./example/src",
+      "outDir"           : "./example/dist",
+      "index"            : "index.html",
+      "main"             : "main.ts",
+      "polyfills"        : "polyfills.ts",
+      "tsconfig"         : "tsconfig.json",
       "deployUrl"        : "./",
       "scripts"          : [],
-      "test"             : "../test/tests.ts",
-      "testTsconfig"     : "../tsconfig.spec.json",
-      "environmentSource": "../config/environments/environment.ts",
+      "test"             : "../../test/tests.ts",
+      "testTsconfig"     : "../../tsconfig.spec.json",
+      "environmentSource": "../../config/environments/environment.ts",
       "environments"     : {
         "dev" : "../config/environments/environment.ts",
         "prod": "../config/environments/environment.prod.ts"
@@ -33,18 +33,9 @@
     }
   },
   "defaults": {
-    "build"           : {
+    "build"   : {
       "sourcemaps": false
     },
-    "styleExt"        : "sass",
-    "prefixInterfaces": false,
-    "spec"            : {
-      "class"    : false,
-      "component": true,
-      "directive": true,
-      "module"   : false,
-      "pipe"     : true,
-      "service"  : true
-    }
+    "styleExt": "sass"
   }
 }

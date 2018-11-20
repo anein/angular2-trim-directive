@@ -3,8 +3,6 @@ set -o errexit
 
 # pre-deploy
 cd example/dist
-mv example/src/index.html ./index.html
-rm -rf example
 
 # config
 git config --global user.email "nobody@nobody.org"
