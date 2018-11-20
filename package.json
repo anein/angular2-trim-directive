@@ -32,12 +32,13 @@
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
     "tslint"      : "tslint -c ./tslint.json -p ./tsconfig.json",
     "lint"        : "ng lint",
+    "format"      : "pretty-quick",
     "prepublish"  : "npm run build"
   },
   "husky"          : {
     "hooks": {
-      "pre-commit": "yarn run lint && yarn run test",
-      "pre-push"  : "yarn run lint && yarn run test && yarn run build"
+      "pre-commit": "yarn run lint",
+      "pre-push"  : "yarn run lint && yarn run test && yarn run format && yarn run build"
     }
   },
   "devDependencies": {
@@ -63,6 +64,7 @@
     "karma-jasmine"                    : "^2.0.1",
     "karma-jasmine-html-reporter"      : "^1.4.0",
     "prettier"                         : "^1.15.2",
+    "pretty-quick"                     : "^1.8.0",
     "puppeteer"                        : "^1.10.0",
     "rxjs"                             : "^6.3.3",
     "travis"                           : "^0.1.1",
