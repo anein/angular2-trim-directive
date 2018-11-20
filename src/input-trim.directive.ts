@@ -100,6 +100,10 @@ export class InputTrimDirective implements ControlValueAccessor {
     }
   }
 
+  setDisabledState(isDisabled: boolean): void {
+    this._sourceRenderer.setProperty(this._sourceElementRef.nativeElement, 'disabled', isDisabled);
+  }
+
   /**
    * Trims an input value, and sets it to the model and element.
    *
