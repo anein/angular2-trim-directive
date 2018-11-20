@@ -10,7 +10,7 @@
     "target"                : "es5",
     "pretty"                : true,
     "removeComments"        : true,
-    "lib": [
+    "lib"                   : [
       "es2017",
       "dom"
     ],
@@ -24,6 +24,6 @@
     "**/*.spec.ts"
   ],
   "angularCompilerOptions": {
-    "strictMetadataEmit"  : true
+    "strictMetadataEmit" : true
   }
 }
