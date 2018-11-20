@@ -25,12 +25,13 @@
     "LICENSE"
   ],
   "scripts"        : {
-    "eg:build"    : "ng build --app 0",
-    "eg:serve"    : "ng serve --app 0",
+    "eg:build"    : "ng build",
+    "eg:serve"    : "ng serve",
     "build"       : "ngc --project ./tsconfig.json",
     "test"        : "ng test",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
-    "lint"        : "tslint -c ./tslint.json -p ./tsconfig.json",
+    "tslint"      : "tslint -c ./tslint.json -p ./tsconfig.json",
+    "lint"        : "ng lint",
     "prepublish"  : "npm run build"
   },
   "husky"          : {
