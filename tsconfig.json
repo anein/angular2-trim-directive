@@ -11,10 +11,16 @@
     "pretty"                : true,
     "removeComments"        : true,
     "lib"                   : [
+      "es5",
       "es2017",
       "dom"
     ],
-    "baseUrl": "./"
+    "baseUrl"               : "./",
+    "paths"                 : {
+      "@": [
+        "node_modules/"
+      ]
+    }
   },
   "include"               : [
     "src/**/*"

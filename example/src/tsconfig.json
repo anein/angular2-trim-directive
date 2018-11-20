@@ -7,9 +7,16 @@
     "experimentalDecorators": true,
     "sourceRoot"            : ".",
     "lib"                   : [
+      "es5",
       "es2017",
       "dom"
-    ]
+    ],
+    "baseUrl"               : "/",
+    "paths"                 : {
+      "@": [
+        "node_modules/"
+      ]
+    }
   },
   "exclude"          : [
     "node_modules"
