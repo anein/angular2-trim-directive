@@ -84,7 +84,7 @@ export class InputTrimDirective implements ControlValueAccessor {
     // could change the initial state of a model.
     // The Reactive Form does it automatically during initialization.
     //
-    // ISSUE: https://github.com/anein/angular2-trim-directive/issues/18
+    // SEE: https://github.com/anein/angular2-trim-directive/issues/18
     //
     this._value = value === "" ? "" : value || null;
 
@@ -93,7 +93,7 @@ export class InputTrimDirective implements ControlValueAccessor {
     // a dirty trick (or magic) goes here:
     // it updates the element value if `setProperty` doesn't set a new value for some reason.
     //
-    // ISSUE: https://github.com/anein/angular2-trim-directive/issues/9
+    // SEE: https://github.com/anein/angular2-trim-directive/issues/9
     //
     if (this._type !== "text") {
       this._sourceRenderer.setAttribute(this._sourceElementRef.nativeElement, "value", this._value);
@@ -111,7 +111,7 @@ export class InputTrimDirective implements ControlValueAccessor {
    * @param {string} event - input event
    */
   private updateValue(event: string, value: string): void {
-    // check if the user has set an optional attribute. Trimmmm!!! Uhahahaha!
+    // check if the user has set an optional attribute, and Trimmmm!!! Uhahahaha!
     value = this.trim !== "" && event !== this.trim ? value : value.trim();
 
     const previous = this._value;
@@ -119,14 +119,12 @@ export class InputTrimDirective implements ControlValueAccessor {
     // write value to the element.
     this.writeValue(value);
 
-    // Update model only when getting new value, and prevent firing
-    // the `dirty` state for empty fields.
+    // Update the model only on getting new value, and prevent firing
+    // the `dirty` state when click on empty fields.
     //
-    // ISSUE: https://github.com/anein/angular2-trim-directive/issues/17
+    // SEE: https://github.com/anein/angular2-trim-directive/issues/17
     //
-    // TODO: Optimize
-    //
-    if (previous && (this._value.trim() !== "" || previous.trim() !== "") && this._value.trim() !== previous) {
+    if (this._value.trim() && this._value.trim() !== previous) {
       this.onChange(this._value);
     }
   }
