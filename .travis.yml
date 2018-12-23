@@ -4,22 +4,20 @@ notifications:
   email: false
 node_js:
 - '10'
-before_script:
-- npm prune
 install:
-- npm install
+- yarn install
 cache:
   bundler: true
   directories:
   - node_modules
 script:
-- npm run test
-- npm run build
+- yarn run test
+- yarn run build
 branches:
   only:
   - master
 before_deploy:
-- npm run build
+- yarn run build
 deploy:
 - provider: npm
   email: al.eine@protonmail.com
