@@ -122,7 +122,9 @@ export class InputTrimDirective implements ControlValueAccessor {
     // Update the model only on getting new value, and prevent firing
     // the `dirty` state when click on empty fields.
     //
-    // SEE: https://github.com/anein/angular2-trim-directive/issues/17
+    // SEE:
+    //    https://github.com/anein/angular2-trim-directive/issues/17
+    //    https://github.com/anein/angular2-trim-directive/issues/35
     //
     if (this._value.trim() && this._value.trim() !== previous) {
       this.onChange(this._value);
