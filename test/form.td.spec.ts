@@ -203,6 +203,17 @@ describe("Tests: Template-Driven Form", () => {
       expect(componentInstance.example).toBe(inputElement.value);
     });
 
+
+    it("should trim whitespaces from the end on the blur event and update the model", () => {
+      inputElement.value = "a";
+
+      inputElement.dispatchEvent(new Event("blur"));
+
+      fixture.detectChanges();
+
+      expect(componentInstance.example).toBe("a", "The model is not updated");
+    });
+
     it("should NOT change the model on the BLUR event", () => {
       componentInstance.exampleModel.control.setValue(value);
 
