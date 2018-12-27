@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -o errexit
 
+yarn run 'eg:build'
+
 # pre-deploy
 cd example/dist
 
