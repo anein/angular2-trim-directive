@@ -125,8 +125,9 @@ export class InputTrimDirective implements ControlValueAccessor {
     // SEE:
     //    https://github.com/anein/angular2-trim-directive/issues/17
     //    https://github.com/anein/angular2-trim-directive/issues/35
+    //    https://github.com/anein/angular2-trim-directive/issues/39
     //
-    if (this._value.trim() && this._value.trim() !== previous) {
+    if ((this._value || previous) && this._value.trim() !== previous) {
       this.onChange(this._value);
     }
   }
