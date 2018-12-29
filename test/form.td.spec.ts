@@ -30,8 +30,8 @@ describe("Tests: Template-Driven Form", () => {
 
   let inputElement: HTMLInputElement;
 
-  const value: string = "Bob";
-  const valueWithWhitespaces = "Bob   ";
+  let value: string = "Bob";
+  let valueWithWhitespaces = "Bob   ";
 
   beforeEach(() => {
     // create a component fixture
@@ -77,6 +77,35 @@ describe("Tests: Template-Driven Form", () => {
 
       expect(componentInstance.example).toBe(undefined);
     });
+
+    /**
+     *  SEE:
+     *    https://github.com/anein/angular2-trim-directive/issues/39
+     */
+    it( "should allow to set empty string in a field", () => {
+
+      let expectedValue = value;
+
+      inputElement.value = value;
+
+      inputElement.dispatchEvent( new Event( "input" ) );
+
+      fixture.detectChanges();
+
+      expect( componentInstance.example ).toBe( expectedValue, "The model is not updated" );
+
+      value = "";
+      expectedValue = "";
+
+      inputElement.value = value;
+
+      inputElement.dispatchEvent( new Event( "input" ) );
+
+      fixture.detectChanges();
+
+      expect( componentInstance.example ).toBe( expectedValue, "Model is not empty" )
+
+    } );
 
     it(`should return an empty string if value is null `, () => {
       componentInstance.exampleModel.control.setValue(null);
@@ -203,7 +232,9 @@ describe("Tests: Template-Driven Form", () => {
       expect(componentInstance.example).toBe(inputElement.value);
     });
 
-
+    //
+    // SEE:
+    //
     it("should trim whitespaces from the end on the blur event and update the model", () => {
       inputElement.value = "a";
 
