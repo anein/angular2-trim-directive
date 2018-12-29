@@ -30,10 +30,14 @@ describe("Tests: Template-Driven Form", () => {
 
   let inputElement: HTMLInputElement;
 
-  const value: string = "Bob";
-  const valueWithWhitespaces = "Bob   ";
+  let value: string;
+  let valueWithWhitespaces;
 
   beforeEach(() => {
+
+    value = "Bob";
+    valueWithWhitespaces = "Bob   ";
+
     // create a component fixture
     TestBed.configureTestingModule({
       imports: [FormsModule, InputTrimModule],
@@ -64,6 +68,35 @@ describe("Tests: Template-Driven Form", () => {
       componentInstance.exampleModel.control.setValue(valueWithWhitespaces);
       expect(inputElement.value).toBe(valueWithWhitespaces);
     });
+
+    /**
+     *  SEE:
+     *    https://github.com/anein/angular2-trim-directive/issues/39
+     */
+    it( "should allow to set empty string in a field", () => {
+
+      let expectedValue = value;
+
+      inputElement.value = value;
+
+      inputElement.dispatchEvent( new Event( "input" ) );
+
+      fixture.detectChanges();
+
+      expect( componentInstance.example ).toBe( expectedValue, "The model is not updated" );
+
+      value = "";
+      expectedValue = "";
+
+      inputElement.value = value;
+
+      inputElement.dispatchEvent( new Event( "input" ) );
+
+      fixture.detectChanges();
+
+      expect( componentInstance.example ).toBe( expectedValue, "Model is not empty" )
+
+    } );
 
     it(`should NOT change initial state of the "undefined" model if input value is empty`, () => {
       componentInstance.exampleModel.control.setValue(undefined);
