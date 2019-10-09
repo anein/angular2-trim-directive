@@ -19,7 +19,7 @@ Play with the directive here [https://anein.github.io/angular2-trim-directive/](
   or using **Yarn**
   
   ```bash
-    yarn add ng2-trim-directive -D
+    yarn add ng2-trim-directive
   ```
   
 2. Import `InputTrimModule` to your Angular module.
