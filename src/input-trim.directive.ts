@@ -20,13 +20,13 @@ import {
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: InputTrimDirective, multi: true }]
 })
 export class InputTrimDirective implements ControlValueAccessor, OnChanges {
-  // Get a value of the trim attribute if it was set.
-  @Input() trim: string;
 
   @Input()
   set type(value: string) {
     this._type = value || "text";
   }
+  // Get a value of the trim attribute if it was set.
+  @Input() trim: string;
 
   /**
    * Keep the type of input element in a cache.
@@ -116,6 +116,10 @@ export class InputTrimDirective implements ControlValueAccessor, OnChanges {
       this._sourceRenderer.setAttribute(this._sourceElementRef.nativeElement, "value", this._value);
     }
   }
+
+  setDisabledState(isDisabled: boolean): void {
+    this._sourceRenderer.setProperty(this._sourceElementRef.nativeElement, 'disabled', isDisabled);
+  }
   
   /**
    * Writes the cursor position in safari
@@ -134,10 +138,6 @@ export class InputTrimDirective implements ControlValueAccessor, OnChanges {
         this._sourceElementRef.nativeElement.setSelectionRange(cursorPosition, cursorPosition);
       }
     }
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    this._sourceRenderer.setProperty(this._sourceElementRef.nativeElement, 'disabled', isDisabled);
   }
 
   /**
