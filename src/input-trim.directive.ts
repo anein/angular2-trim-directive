@@ -1,4 +1,14 @@
-import { Directive, ElementRef, HostListener, Inject, Input, Optional, Renderer2 } from "@angular/core";
+import {
+  Directive,
+  ElementRef,
+  HostListener,
+  Inject,
+  Input,
+  OnChanges,
+  Optional,
+  Renderer2,
+  SimpleChanges
+} from "@angular/core";
 import {
   COMPOSITION_BUFFER_MODE,
   ControlValueAccessor,
@@ -9,7 +19,7 @@ import {
   selector: "input[trim], textarea[trim]",
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: InputTrimDirective, multi: true }]
 })
-export class InputTrimDirective implements ControlValueAccessor {
+export class InputTrimDirective implements ControlValueAccessor, OnChanges {
   // Get a value of the trim attribute if it was set.
   @Input() trim: string;
 
@@ -38,6 +48,13 @@ export class InputTrimDirective implements ControlValueAccessor {
   private _sourceRenderer: Renderer2;
   private _sourceElementRef: ElementRef;
 
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    if (changes["type"]) {
+      console.log("TYPE CHANGE");
+    }
+  }
+  
   /**
    * Updates the value on the blur event.
    */
@@ -99,6 +116,25 @@ export class InputTrimDirective implements ControlValueAccessor {
       this._sourceRenderer.setAttribute(this._sourceElementRef.nativeElement, "value", this._value);
     }
   }
+  
+  /**
+   * Writes the cursor position in safari
+   *
+   * @param cursorPosition - the cursor current position
+   * @param hasTypedSymbol
+   */
+  private setCursorPointer(cursorPosition: any, hasTypedSymbol: boolean): void {
+    // move the cursor to the stored position (Safari usually moves the cursor to the end)
+    if (hasTypedSymbol) {
+      // For now just works in inputs of type text, in others cause an error
+      if (["text", "search", "url", "tel", "password"].indexOf(this._type) >= 0) {
+        // Ok, for some reason in the tests the type changed is not being catch and because of that
+        // this line is executed and causes an error of DOMException, it pass the text without problem
+        // But it should be a better way to validate that type change
+        this._sourceElementRef.nativeElement.setSelectionRange(cursorPosition, cursorPosition);
+      }
+    }
+  }
 
   setDisabledState(isDisabled: boolean): void {
     this._sourceRenderer.setProperty(this._sourceElementRef.nativeElement, 'disabled', isDisabled);
@@ -115,10 +151,13 @@ export class InputTrimDirective implements ControlValueAccessor {
     value = this.trim !== "" && event !== this.trim ? value : value.trim();
 
     const previous = this._value;
-
+  
+    // store the cursor position
+    const cursorPosition = this._sourceElementRef.nativeElement.selectionStart;
+    
     // write value to the element.
     this.writeValue(value);
-
+    
     // Update the model only on getting new value, and prevent firing
     // the `dirty` state when click on empty fields.
     //
@@ -130,5 +169,11 @@ export class InputTrimDirective implements ControlValueAccessor {
     if ((this._value || previous) && this._value.trim() !== previous) {
       this.onChange(this._value);
     }
+  
+    // check that non-null value is being changed
+    const hasTypedSymbol = value && previous && value !== previous;
+    
+    // write the cursor position
+    this.setCursorPointer(cursorPosition, hasTypedSymbol);
   }
 }
