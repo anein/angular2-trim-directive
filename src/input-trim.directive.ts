@@ -4,10 +4,8 @@ import {
   HostListener,
   Inject,
   Input,
-  OnChanges,
   Optional,
-  Renderer2,
-  SimpleChanges
+  Renderer2
 } from "@angular/core";
 import {
   COMPOSITION_BUFFER_MODE,
@@ -19,7 +17,7 @@ import {
   selector: "input[trim], textarea[trim]",
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: InputTrimDirective, multi: true }]
 })
-export class InputTrimDirective implements ControlValueAccessor, OnChanges {
+export class InputTrimDirective implements ControlValueAccessor {
 
   @Input()
   set type(value: string) {
@@ -47,13 +45,6 @@ export class InputTrimDirective implements ControlValueAccessor, OnChanges {
   // Source services to modify elements.
   private _sourceRenderer: Renderer2;
   private _sourceElementRef: ElementRef;
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    if (changes["type"]) {
-      console.log("TYPE CHANGE");
-    }
-  }
   
   /**
    * Updates the value on the blur event.
