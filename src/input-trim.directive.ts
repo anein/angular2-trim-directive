@@ -19,20 +19,12 @@ import {
 })
 export class InputTrimDirective implements ControlValueAccessor {
 
-  @Input()
-  set type(value: string) {
-    this._type = value || "text";
+  private get _type(): string {
+    return this._sourceElementRef.nativeElement.type || "text";
   }
+
   // Get a value of the trim attribute if it was set.
   @Input() trim: string;
-
-  /**
-   * Keep the type of input element in a cache.
-   *
-   * @type {string}
-   * @private
-   */
-  private _type: string = "text";
 
   /**
    * Keep the value of input element in a cache.
@@ -120,14 +112,12 @@ export class InputTrimDirective implements ControlValueAccessor {
    */
   private setCursorPointer(cursorPosition: any, hasTypedSymbol: boolean): void {
     // move the cursor to the stored position (Safari usually moves the cursor to the end)
-    if (hasTypedSymbol) {
-      // For now just works in inputs of type text, in others cause an error
-      if (["text", "search", "url", "tel", "password"].indexOf(this._type) >= 0) {
-        // Ok, for some reason in the tests the type changed is not being catch and because of that
-        // this line is executed and causes an error of DOMException, it pass the text without problem
-        // But it should be a better way to validate that type change
-        this._sourceElementRef.nativeElement.setSelectionRange(cursorPosition, cursorPosition);
-      }
+    // setSelectionRange method apply only to inputs of types text, search, URL, tel and password
+    if (hasTypedSymbol && ["text", "search", "url", "tel", "password"].indexOf(this._type) >= 0) {
+      // Ok, for some reason in the tests the type changed is not being catch and because of that
+      // this line is executed and causes an error of DOMException, it pass the text without problem
+      // But it should be a better way to validate that type change
+      this._sourceElementRef.nativeElement.setSelectionRange(cursorPosition, cursorPosition);
     }
   }
 
